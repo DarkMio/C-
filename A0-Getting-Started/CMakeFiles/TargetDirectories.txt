@@ -1,0 +1,3 @@
+D:/Projects/cpp/uni/A0-Getting-Started/CMakeFiles/ALL_BUILD.dir
+D:/Projects/cpp/uni/A0-Getting-Started/CMakeFiles/hello.dir
+D:/Projects/cpp/uni/A0-Getting-Started/CMakeFiles/ZERO_CHECK.dir
