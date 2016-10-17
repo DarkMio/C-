@@ -13,22 +13,30 @@ namespace my {
 		float operator[](int const& i) const { return mArray[i]; }
 		float& operator[](int const& i) { return mArray[i]; }
 		bool operator==(Vec3f const& other) const { return mArray == other.mArray; }
+		bool operator!=(Vec3f const& other) const { return mArray != other.mArray; }
 		Vec3f& operator+=(Vec3f const& rhs) { 
 			mArray[0] += rhs[0];
 			mArray[1] += rhs[1];
 			mArray[2] += rhs[2];
 			return *this;
 		}
-		Vec3f operator+(Vec3f const& rhs) {
+		Vec3f operator+(Vec3f const& rhs) const {
 			Vec3f temp(*this);
 			temp += rhs;
 			return temp;
 		}
+		float dot(Vec3f const& other) const {
+			return mArray[0] * other[0] + mArray[1] * other[1] + mArray[2] * other[2];
+		}
 		std::string toString() const {
-			return "[" + std::to_string(mArray[0]) + "," + mArray[1] + "," + mArray[2] + "]";
+			return "[" + std::to_string(mArray[0]) + "," + std::to_string(mArray[1]) + "," + std::to_string(mArray[2]) + "]";
 		}
 		private:
 		std::array<float, 3> mArray;
 	};
+
 }
 
+std::ostream& operator<<(std::ostream&, my::Vec3f const&);
+my::Vec3f operator-(my::Vec3f const&);
+float dot(my::Vec3f const& lhs, my::Vec3f const& rhs);
