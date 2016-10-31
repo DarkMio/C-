@@ -15,13 +15,13 @@ void test_Vec() {
     cout << "=======================" << endl;
 
     {
-        cout << "  value type and dimension: (typedef is broken and idk why)";
+        cout << "  value type and dimension:";
 		cout << " typedef concludes: " << typeid(Vec<float, 3>).name() << endl;
-        // assert(typeid(Vec<float, 3>).name() == typeid(float).name() );
-        // assert( Vec<float, 3>::dimension == 3 ); // @TODO: ?!?!?!
+        assert(typeid(Vec<float, 3>::value_type).name() == typeid(float).name() );
+        assert((Vec<float, 3>::dimension == 3)); // @TODO: ?!?!?!
         cout << "passed." << endl;
     }
-
+	
     {
         // do not tolerate any memory overhead
         cout << "  sizeof(Vec<float, 3>) == 3 bytes: ";
@@ -77,18 +77,18 @@ void test_Vec() {
     
     {
 		// @TODO: Somehow anonymous operations on anonymous objects don't seem to work anymore.
-        cout << "  addition:  (Anonymous objects don't seem to work in comparison operations.)";
-		Vec<float, 3> a({ 1,2,3 }), b({ 4, 5, 6 }), d({ 5,7,9 }), e({ 6,8,10 }), f({ 1,1,1 });
+        cout << "  addition:";
+		Vec<float, 3> a({ 1,2,3 }), b({ 4, 5, 6 });
         a += b;
-		assert(a == d);
-		auto c = a + f;
-		assert(c == e);
+		assert((a == Vec<float, 3>({ 5,7,9 })));
+		auto c = a + Vec<float, 3>({ 1,1,1 });
+		assert((c == Vec<float, 3>({6, 8, 10})));
 		Vec<float, 3> one({ 1,1,1 }), four({ 4, 4, 4 });
         one += one+one+one;
         assert( one == four);
-		Vec<float, 3> x({ 0,0,0 }), y({ 1, 1, 1 }), z({ 2, 2, 2 }), w({ 3,3,3 });
+		Vec<float, 3> x({ 0,0,0 }), y({ 1, 1, 1 }), z({ 2, 2, 2 });
         x += y += z;
-		assert(y == w);
+		assert((y == Vec<float, 3>({ 3,3,3 })));
         assert( x == y );
         cout << "passed." << endl;
     }
@@ -111,12 +111,12 @@ void test_Vec() {
 		// these tests will not compile if you forgot to declare 
 		// some methods const
 		cout << "  constness: ";
-		const Vec<float, 3> a({ 1,2,3 }), b({ 2,4,6 }), c({ -1, -2, -3 });
+		const Vec<float, 3> a({ 1,2,3 });
 		assert(a[1] == 2);
 		assert(a == a);
 		assert(!(a != a));
-		assert(a + a == b);
-		assert(-a == c);
+		assert((a + a == Vec<float, 3>({ 2,4,6 })));
+		assert((-a == Vec<float, 3>({ -1, -2, -3 })));
         assert( dot(a,a) == 1*1+2*2+3*3 );
         cout << "passed." << endl;
     }

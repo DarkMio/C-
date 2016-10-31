@@ -16,18 +16,24 @@ namespace my {
 		Vec(std::array<T, N> const& v) : data_(v) {}
 		Vec() : data_() {}
 		typedef T value_type;
-		static const int dimension = N;
 		int size() const {
-			return (int)(data_.size() * sizeof(T));
+			return (int)( N * sizeof(T));
 		}
 		std::array<T, N> getData() {
 			return data_;
 		}
-		float operator[](int const& i) const {
+		T operator[](int const& i) const {
 			return data_[i];
 		}
-		float& operator[](int const& i) {
+		T& operator[](int const& i) {
 			return data_[i];
+		}
+		T dot(Vec<T, N> const& other) {
+			T x = 0; // shesh, overflows could easily happen
+			for (int i = 0; i < N; i++) {
+				x += data_[i] * other[i];
+			}
+			return x;
 		}
 	};
 };
@@ -95,7 +101,7 @@ my::Vec<T, N>& operator+=(my::Vec<T, N>& lhs, my::Vec<T, N> const& rhs) {
 }
 
 template<typename T, int N>
-T dot(my::Vec<T, N> const& rhs, my::Vec<T, N> const& lhs) {
+T& dot(my::Vec<T, N> const& rhs, my::Vec<T, N> const& lhs) {
 	T x = 0; // shesh, overflows could easily happen
 	for (int i = 0; i < N; i++) {
 		x += rhs[i] * lhs[i];

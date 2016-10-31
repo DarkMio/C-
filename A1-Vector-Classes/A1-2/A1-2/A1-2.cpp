@@ -22,8 +22,8 @@ int main()
 
 	f += j;
 	std::cout << f << std::endl;
-	std::cout << j.dot(j) << std::endl;
-	std::cout << h.dot(h) << std::endl;
+	std::cout << dot(j, j) << std::endl;
+	std::cout << dot(h, h) << std::endl;
     return 0;
 }
 
