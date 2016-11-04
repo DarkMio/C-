@@ -16,9 +16,8 @@ void test_Vec() {
 
     {
         cout << "  value type and dimension:";
-		cout << " typedef concludes: " << typeid(Vec<float, 3>).name() << endl;
         assert(typeid(Vec<float, 3>::value_type).name() == typeid(float).name() );
-        assert((Vec<float, 3>::dimension == 3)); // @TODO: ?!?!?!
+        assert((Vec<float, 3>::dimension == 3));
         cout << "passed." << endl;
     }
 	
@@ -76,7 +75,6 @@ void test_Vec() {
     }
     
     {
-		// @TODO: Somehow anonymous operations on anonymous objects don't seem to work anymore.
         cout << "  addition:";
 		Vec<float, 3> a({ 1,2,3 }), b({ 4, 5, 6 });
         a += b;

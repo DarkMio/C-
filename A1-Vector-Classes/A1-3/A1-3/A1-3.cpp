@@ -3,6 +3,8 @@
 #include "Mat.h"
 #include <array>
 #include <iostream>
+#include "util.h"
+#include <string>
 
 int main()
 {
@@ -12,9 +14,7 @@ int main()
 	my::Mat<float, 3> d({ a, b, c });
 	std::cout << d[2] << std::endl;
 	std::cout << "  Identity:" << std::endl;
-	std::cout << d.identity()[0] << std::endl;
-	std::cout << d.identity()[1] << std::endl;
-	std::cout << d.identity()[2] << std::endl;
+	std::cout << d.identity() << std::endl;
 	my::Mat<float, 3> ident(d.identity()); // redundant, but works!
 	my::Mat<float, 3> thing({
 		my::Vec<float, 3>({2, 0, 0}),
@@ -22,19 +22,18 @@ int main()
 		my::Vec<float, 3>({0, 0, 2})
 	});
 	my::Vec<float, 3> x = thing * a;
-	std::cout << "  Mat x Vec:\n" << x << std::endl;
-	my::Mat<int, 2> rhs({
-		my::Vec<int, 2>({1, 3}),
-		my::Vec<int, 2>({2, 3})
-	});
+	std::cout << "  Mat x Vec:\n" << to_string(x) << std::endl;
 	my::Mat<int, 2> lhs({
+		my::Vec<int, 2>({1, 3}),
+		my::Vec<int, 2>({2, 4})
+	});
+	my::Mat<int, 2> rhs({
 		my::Vec<int, 2>({2, 1}),
 		my::Vec<int, 2>({0, 2})
 	});
 	my::Mat<int, 2> result = lhs * rhs;
 	std::cout << "  Mat x Mat" << std::endl;
-	std::cout << result[0] << std::endl;
-	std::cout << result[1] << std::endl;
+	std::cout << to_string(result) << std::endl;
     return 0;
 }
 

@@ -23,10 +23,10 @@ namespace my {
 		std::array<T, N> getData() {
 			return data_;
 		}
-		float operator[](int const& i) const {
+		T operator[](int const& i) const {
 			return data_[i];
 		}
-		float& operator[](int const& i) {
+		T& operator[](int const& i) {
 			return data_[i];
 		}
 	};

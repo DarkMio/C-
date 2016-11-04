@@ -2,9 +2,9 @@
 #include "Vec.h"
 #include <array>
 
-namespace my{
+namespace my {
 	template<typename T, int N>
-	class Mat{
+	class Mat {
 		private:
 		std::array<Vec<T, N>, N> mArray;
 		public:
@@ -12,8 +12,8 @@ namespace my{
 		Mat(Mat<T, N> const& v) : mArray(v.mArray) {};
 		Mat() : mArray() {}
 		typedef T value_type;
-		int size() const { return (int) (sizeof(T) * N * N); }
-		Mat<T, N> const& identity() {
+		int size() const& { return (int)(sizeof(T) * N * N); }
+		Mat<T, N> const identity() {
 			static const Mat<T, N> m = [] {
 				std::array<Vec<T, N>, N> matArray;
 				for (int i = 0; i < N; i++) {
@@ -32,6 +32,45 @@ namespace my{
 			return mArray[i];
 		}
 	};
+}
+
+template<typename T, int N>
+bool operator==(my::Mat<T, N> const& lhs, my::Mat<T, N> const& rhs) {
+	for (int i = 0; i < N; i++) {
+		if (lhs[i] != rhs[i]) {
+			return false;
+		}
+	}
+	return true;
+}
+
+template<typename T, int N>
+bool operator!=(my::Mat<T, N> const& lhs, my::Mat<T, N> const& rhs) {
+	return !(lhs == rhs);
+}
+
+
+template<typename T, int N>
+std::ostream& operator<<(std::ostream& lhs, my::Mat<T, N> const& rhs) {
+	//@TODO: refactor this to to_string
+	lhs << "<";
+	for (int i = 0; i < N; i++) {
+		lhs << "[";
+		for (int j = 0; j < N; j++) {
+			lhs << rhs[j][i];
+			if (j + 1 == N) {
+				break;
+			}
+			lhs << ", ";
+		}
+		lhs << "]";
+		if (i + 1 == N) {
+			break;
+		}
+		lhs << ",\n ";
+	}
+	lhs << ">";
+	return lhs;
 }
 
 template<typename T, int N>
@@ -56,7 +95,13 @@ my::Mat<T, N> operator*(my::Mat<T, N> const& lhs, my::Mat<T, N> const& rhs) {
 		}
 		return rowie;
 	};
-	std::array<my::Vec<T, N>, N> vecArray;
+	std::array<my::Vec<T, N>, N> vecArray();
+	/*
+	for (auto vec : vecArray) {
+		vec = my::Vec<T, N>();
+	}
+	*/
+
 
 	for (int i = 0; i < N; i++) {
 		std::array<T, N> valArray;
@@ -67,10 +112,10 @@ my::Mat<T, N> operator*(my::Mat<T, N> const& lhs, my::Mat<T, N> const& rhs) {
 			for (int k = 0; k < N; k++) {
 				sum += column[k] * rowie[k];
 			}
-			valArray[j] = sum;
+			vecArray[j][i] = sum;
 		}
 
-		vecArray[i] = my::Vec<T, N>(valArray);
+		// vecArray[i] = my::Vec<T, N>(valArray);
 
 		/*
 		// std::array<T, N> valArray = {};
@@ -79,17 +124,17 @@ my::Mat<T, N> operator*(my::Mat<T, N> const& lhs, my::Mat<T, N> const& rhs) {
 		Vec<T, N> column = rhs[i];
 		T sum = 0;
 		for (int j = 0; j < N; j++) {
-			sum += row[i] * column[i];
+		sum += row[i] * column[i];
 		}
-		
+
 		for (int j = 0; j < N; j++) {
-			T sum = 0;
-			for (int k = 0; k < N; k++) {
-				sum += lhs[i][k] * rhs[k][j];
-			}
-			valArray[j] = sum;
+		T sum = 0;
+		for (int k = 0; k < N; k++) {
+		sum += lhs[i][k] * rhs[k][j];
 		}
-		
+		valArray[j] = sum;
+		}
+
 		vecArray[i] = my::Vec<T, N>(valArray);
 		*/
 	}

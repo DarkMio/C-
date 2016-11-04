@@ -8,6 +8,8 @@
 int main()
 {
 	test_Vec();
+	test_vec_generic<int, 2>();
+	test_vec_generic<double, 4>();
 	my::Vec<float, 3> f({ 1, 2, 3 });
 	my::Vec<float, 4> h({ 1, 2, 3, 4 });
 	my::Vec<float, 3> g({ 1, 2, 4 });
