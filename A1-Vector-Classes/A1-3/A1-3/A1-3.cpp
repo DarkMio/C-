@@ -5,14 +5,17 @@
 #include <iostream>
 #include "util.h"
 #include <string>
+#include "test_driver.h"
 
 int main()
 {
+	/*
 	my::Vec<float, 3> a({ 1, 2, 3 });
 	my::Vec<float, 3> b({ 4, 5, 6 });
 	my::Vec<float, 3> c({ 7, 8, 9 });
 	my::Mat<float, 3> d({ a, b, c });
 	std::cout << d[2] << std::endl;
+	std::cout << to_string(d, 6, 2) << std::endl;
 	std::cout << "  Identity:" << std::endl;
 	std::cout << d.identity() << std::endl;
 	my::Mat<float, 3> ident(d.identity()); // redundant, but works!
@@ -33,7 +36,11 @@ int main()
 	});
 	my::Mat<int, 2> result = lhs * rhs;
 	std::cout << "  Mat x Mat" << std::endl;
-	std::cout << to_string(result) << std::endl;
+	std::cout << to_string(result, 6, 2) << std::endl;
+	std::cout << to_string(result, 3, 0) << std::endl;
+	*/
+
+	test_mat();
     return 0;
 }
 

@@ -13,7 +13,7 @@ namespace my {
 		Mat() : mArray() {}
 		typedef T value_type;
 		int size() const& { return (int)(sizeof(T) * N * N); }
-		Mat<T, N> const identity() {
+		Mat<T, N> const identity() const {
 			static const Mat<T, N> m = [] {
 				std::array<Vec<T, N>, N> matArray;
 				for (int i = 0; i < N; i++) {
@@ -49,37 +49,13 @@ bool operator!=(my::Mat<T, N> const& lhs, my::Mat<T, N> const& rhs) {
 	return !(lhs == rhs);
 }
 
-
-template<typename T, int N>
-std::ostream& operator<<(std::ostream& lhs, my::Mat<T, N> const& rhs) {
-	//@TODO: refactor this to to_string
-	lhs << "<";
-	for (int i = 0; i < N; i++) {
-		lhs << "[";
-		for (int j = 0; j < N; j++) {
-			lhs << rhs[j][i];
-			if (j + 1 == N) {
-				break;
-			}
-			lhs << ", ";
-		}
-		lhs << "]";
-		if (i + 1 == N) {
-			break;
-		}
-		lhs << ",\n ";
-	}
-	lhs << ">";
-	return lhs;
-}
-
 template<typename T, int N>
 my::Vec<T, N> operator*(my::Mat<T, N> lhs, my::Vec<T, N> rhs) {
 	std::array<T, N> values = {};
 	for (int i = 0; i < N; i++) {
 		T x = 0;
 		for (int j = 0; j < N; j++) {
-			x += lhs[i][j] * rhs[j];
+			x += lhs[j][i] * rhs[j];
 		}
 		values[i] = x;
 	}
@@ -95,16 +71,9 @@ my::Mat<T, N> operator*(my::Mat<T, N> const& lhs, my::Mat<T, N> const& rhs) {
 		}
 		return rowie;
 	};
-	std::array<my::Vec<T, N>, N> vecArray();
-	/*
-	for (auto vec : vecArray) {
-		vec = my::Vec<T, N>();
-	}
-	*/
-
+	std::array<my::Vec<T, N>, N> vecArray;
 
 	for (int i = 0; i < N; i++) {
-		std::array<T, N> valArray;
 		auto rowie = row(i);
 		for (int j = 0; j < N; j++) {
 			auto column = rhs[j];
@@ -114,29 +83,6 @@ my::Mat<T, N> operator*(my::Mat<T, N> const& lhs, my::Mat<T, N> const& rhs) {
 			}
 			vecArray[j][i] = sum;
 		}
-
-		// vecArray[i] = my::Vec<T, N>(valArray);
-
-		/*
-		// std::array<T, N> valArray = {};
-		vecArray[i] = lhs * rhs[i];
-		auto rowie = row(lhs, i);
-		Vec<T, N> column = rhs[i];
-		T sum = 0;
-		for (int j = 0; j < N; j++) {
-		sum += row[i] * column[i];
-		}
-
-		for (int j = 0; j < N; j++) {
-		T sum = 0;
-		for (int k = 0; k < N; k++) {
-		sum += lhs[i][k] * rhs[k][j];
-		}
-		valArray[j] = sum;
-		}
-
-		vecArray[i] = my::Vec<T, N>(valArray);
-		*/
 	}
 	return my::Mat<T, N>(vecArray);
 }

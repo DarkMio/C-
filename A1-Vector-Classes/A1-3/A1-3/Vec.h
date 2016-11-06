@@ -3,10 +3,10 @@
 
 namespace my {
 	/**
-		You hereby agree to be no common retard, but a smart retard.
-		Smart retards use mathematical vectors with numerical types - not ypur classes.
-		This trmplated class expects reasonable numerical types - otherwise it breaks.
-		If it breaks, you're probably a commom retard.
+	You hereby agree to be no common retard, but a smart retard.
+	Smart retards use mathematical vectors with numerical types - not ypur classes.
+	This trmplated class expects reasonable numerical types - otherwise it breaks.
+	If it breaks, you're probably a commom retard.
 	*/
 	template<typename T, int N>
 	class Vec {
@@ -16,8 +16,9 @@ namespace my {
 		Vec(std::array<T, N> const& v) : data_(v) {}
 		Vec() : data_() {}
 		typedef T value_type;
+		static const int dimension = N;
 		int size() const {
-			return (int)( N * sizeof(T));
+			return (int)(data_.size() * sizeof(T));
 		}
 		std::array<T, N> getData() {
 			return data_;
@@ -27,13 +28,6 @@ namespace my {
 		}
 		T& operator[](int const& i) {
 			return data_[i];
-		}
-		T dot(Vec<T, N> const& other) {
-			T x = 0; // shesh, overflows could easily happen
-			for (int i = 0; i < N; i++) {
-				x += data_[i] * other[i];
-			}
-			return x;
 		}
 	};
 };
@@ -47,6 +41,21 @@ bool operator==(my::Vec<T, N> const& lhs, my::Vec<T, M> const& rhs) {
 		}
 	}
 	return true;
+}
+
+template<typename T, int N>
+std::ostream& operator<<(std::ostream& lhs, my::Vec<T, N> const& rhs) {
+	//@TODO: refactor this to to_string
+	lhs << "[";
+	for (int i = 0; i < N; i++) {
+		lhs << rhs[i];
+		if (i + 1 == N) {
+			break;
+		}
+		lhs << ", ";
+	}
+	lhs << "]";
+	return lhs;
 }
 
 template<typename T, int N, int M>
@@ -86,7 +95,7 @@ my::Vec<T, N>& operator+=(my::Vec<T, N>& lhs, my::Vec<T, N> const& rhs) {
 }
 
 template<typename T, int N>
-T& dot(my::Vec<T, N> const& rhs, my::Vec<T, N> const& lhs) {
+T dot(my::Vec<T, N> const& rhs, my::Vec<T, N> const& lhs) {
 	T x = 0; // shesh, overflows could easily happen
 	for (int i = 0; i < N; i++) {
 		x += rhs[i] * lhs[i];
