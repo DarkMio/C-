@@ -87,7 +87,7 @@ my::Vec<T, N> operator-(my::Vec<T, N> const& rhs, my::Vec<T, N> const& lhs) {
 }
 
 template<typename T, int N>
-my::Vec<T, N>& operator+=(my::Vec<T, N>& lhs, my::Vec<T, N> const& rhs) {
+my::Vec<T, N> operator+=(my::Vec<T, N>& lhs, my::Vec<T, N> const& rhs) {
 	for (int i = 0; i < N; i++) {
 		lhs[i] += rhs[i];
 	}
