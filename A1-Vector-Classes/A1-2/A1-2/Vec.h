@@ -102,39 +102,3 @@ T dot(my::Vec<T, N> const& rhs, my::Vec<T, N> const& lhs) {
 	}
 	return x;
 }
-
-/*
-bool operator==(my::Vec<float, 3> const& lhs, my::Vec<float, 3> const& rhs) {
-return lhs[0] == rhs[0] && lhs[1] == rhs[1] && lhs[2] == rhs[2];
-}
-
-*/
-
-/*
-#if 0
-	class Vec<float, 3> {
-		public:
-		Vec<float, 3>();
-		Vec<float, 3>(float x, float y, float z);
-		int dimension() const { return 3; }
-		typedef float value_type;
-		float operator[](int const& i) const { return mArray[i]; }
-		float& operator[](int const& i) { return mArray[i]; }
-		float dot(Vec<float, 3> const& other) const;
-		std::string toString() const;
-		private:
-		std::array<float, 3> mArray;
-	};
-}
-
-std::ostream& operator<<(std::ostream&, my::Vec<float, 3> const&);
-bool operator!=(my::Vec<float, 3> const&, my::Vec<float, 3> const&);
-bool operator==(my::Vec<float, 3> const&, my::Vec<float, 3> const&);
-my::Vec<float, 3> operator-(my::Vec<float, 3> const&);
-my::Vec<float, 3> operator+(my::Vec<float, 3> const&, my::Vec<float, 3> const&);
-my::Vec<float, 3>& operator+=(my::Vec<float, 3>& lhs, my::Vec<float, 3> const& rhs);
-float dot(my::Vec<float, 3> const& lhs, my::Vec<float, 3> const& rhs);
-
-#endif
-
-*/

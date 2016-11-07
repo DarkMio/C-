@@ -49,6 +49,7 @@ void test_mat() {
 		assert(incrementMat.identity() == identity4x4);
 		Mat<float, 4> identMult = incrementMat * incrementMat.identity();
 		// cout << endl << identMult << endl;
+		assert(identMult == incrementMat);
 		assert(identMult[0] == matArray1);
 		assert(identMult[1] == matArray2);
 		assert(identMult[2] == matArray3);
@@ -93,8 +94,10 @@ void test_mat() {
 		});
 		assert(incrementMat * a == b);
 		cout << "passed." << endl;
-		cout << "  Print Tests:" << endl << "______________________________________" << endl;
-		cout << to_string(incrementMat) << endl << to_string(a, 8, 2) << endl << to_string(b, 7, 0) << endl;
+		cout << "  Print Tests:" << endl;
+		cout << "______________________________________" << endl;
+		cout << to_string(incrementMat) << endl << to_string(a, 8, 2) << endl;
+		cout << to_string(b, 7, 0) << endl;
 	}
 	cout << "______________________________________" << endl << "all Mat<float, 4> tests passed." << endl << endl;
 }

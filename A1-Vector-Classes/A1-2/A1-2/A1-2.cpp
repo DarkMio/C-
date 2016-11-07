@@ -12,24 +12,6 @@ int main()
 	test_vec_generic<double, 4>();
 	test_vec_generic<float, 3>();
 	// test_vec_generic<bool, 1>(); // actually works, but causes a lot of compiler warnings
-	/*
-	my::Vec<float, 3> f({ 1, 2, 3 });
-	my::Vec<float, 4> h({ 1, 2, 3, 4 });
-	my::Vec<float, 3> g({ 1, 2, 4 });
-	my::Vec<float, 3> j({ 1, 2, 3 });
-	std::cout << (f == g) << std::endl;
-	std::cout << (f == j) << std::endl;
-	std::cout << (f == my::Vec<float, 3>({ 1, 2, 3 })) << std::endl;
-	std::cout << f << std::endl;
-	std::cout << (-f) << std::endl;
-	std::cout << (f + j) << std::endl;
-	std::cout << (f - j) << std::endl;
-
-	f += j;
-	std::cout << f << std::endl;
-	std::cout << dot(j, j) << std::endl;
-	std::cout << dot(h, h) << std::endl;
-	*/
     return 0;
 }
 

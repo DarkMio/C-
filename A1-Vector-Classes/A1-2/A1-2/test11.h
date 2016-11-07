@@ -14,7 +14,7 @@ void test_Vec();
 template<typename T, int N>
 inline void test_vec_generic() {
 #ifndef NDEBUG
-
+	static_assert(N > 0, "Cannot run tests on zero or less vector sizes.");
 	// Builds {0, 1, ..., N} arrays
 	auto build_values = []() {
 		std::array<T, N> values{};

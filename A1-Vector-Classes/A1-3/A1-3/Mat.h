@@ -14,6 +14,7 @@ namespace my {
 		typedef T value_type;
 		int size() const& { return (int)(sizeof(T) * N * N); }
 		Mat<T, N> const identity() const {
+			// generate once
 			static const Mat<T, N> m = [] {
 				std::array<Vec<T, N>, N> matArray;
 				for (int i = 0; i < N; i++) {
@@ -54,6 +55,7 @@ my::Vec<T, N> operator*(my::Mat<T, N> lhs, my::Vec<T, N> rhs) {
 	std::array<T, N> values = {};
 	for (int i = 0; i < N; i++) {
 		T x = 0;
+		// multiply row i to a row of j and sum up
 		for (int j = 0; j < N; j++) {
 			x += lhs[j][i] * rhs[j];
 		}
@@ -64,6 +66,7 @@ my::Vec<T, N> operator*(my::Mat<T, N> lhs, my::Vec<T, N> rhs) {
 
 template<typename T, int N>
 my::Mat<T, N> operator*(my::Mat<T, N> const& lhs, my::Mat<T, N> const& rhs) {
+	// easy selector for a single row of a vector
 	auto row = [&lhs](int const& row) {
 		std::array<T, N> rowie;
 		for (int i = 0; i < N; i++) {
@@ -78,6 +81,7 @@ my::Mat<T, N> operator*(my::Mat<T, N> const& lhs, my::Mat<T, N> const& rhs) {
 		for (int j = 0; j < N; j++) {
 			auto column = rhs[j];
 			T sum = 0;
+			// sum each column of lhs to the row of rhs
 			for (int k = 0; k < N; k++) {
 				sum += column[k] * rowie[k];
 			}
