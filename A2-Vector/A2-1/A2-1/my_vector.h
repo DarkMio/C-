@@ -12,11 +12,16 @@ namespace my {
 		public:
 		vector(vector<T> const &) = delete;
 		vector<T>& operator=(vector<T> const &) = delete;
-		vector(): space(0), elements(0) {
-			// mArray = new T[0];
+		vector() : space(0), elements(0) {
+			mArray = nullptr;
 		}
-		vector(size_t const& initialSize) : space(initialSize), elements(0) {
+		vector(size_t const& initialSize, T const& x = T()) : space(initialSize), elements(0) {
+			if (initialSize == 0) {
+				mArray = nullptr;
+				return;
+			}
 			mArray = new T[initialSize];
+			mArray[elements++] = x;
 		}
 		~vector() {
 			delete[] mArray;
@@ -53,6 +58,7 @@ namespace my {
 			for (int i = 0; i < elements; i++) {
 				temp[i] = mArray[i];
 			}
+			delete[] mArray;
 			mArray = temp;
 			return val;
 		}
@@ -65,7 +71,7 @@ namespace my {
 		T& at(size_t element) const {
 			if (element >= elements) {
 				std::stringstream ss;
-				ss << "Only " << elements << " elements, you accessed the" << (element+1) << "th";
+				ss << "Only " << elements << " elements, you tried to access the" << (element+1) << "th";
 				throw std::out_of_range(ss.str());
 			}
 			return mArray[element];
