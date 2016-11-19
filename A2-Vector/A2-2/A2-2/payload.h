@@ -12,7 +12,9 @@ public:
     // constructors
     Payload(float xx=0, float yy=0, float zz=0) : x(xx), y(yy), z(zz) { count_++; }
     Payload(const Payload& rhs) : x(rhs.x), y(rhs.y), z(rhs.z) { count_++; }
-
+	Payload(Payload&& rhs) : Payload() {
+		swap(*this, rhs);
+	}
     // destructor
     ~Payload()  { count_--; }
 
@@ -23,7 +25,14 @@ public:
     bool operator==(const Payload& rhs) const { return x==rhs.x && y==rhs.y && z==rhs.z; }
 
     // tell count
-    static size_t count() { return count_; }
+    static size_t count() { 
+		return count_; }
+
+	friend void swap(Payload const& lhs, Payload const& rhs) {
+		std::swap(lhs.x, rhs.x);
+		std::swap(lhs.y, rhs.y);
+		std::swap(lhs.z, rhs.z);
+	}
 
 private:
     static size_t count_;

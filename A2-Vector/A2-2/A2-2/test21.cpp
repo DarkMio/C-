@@ -14,25 +14,24 @@ void test_21()
     using std::endl;
 
     {
-        cout << "construction/destruction, size() ... (please help at construction with ... or something)";
+        cout << "construction/destruction, size() ... (pretty sure there's a mistake with size)";
         vector<Payload> v0;
         assert(v0.size() == 0);
         assert(Payload::count() == 0);
-	#if 0
+
         {
             // are the elements created?
             vector<Payload> v1(3, Payload(-1,-1,-1));
             assert(v1.size() == 3);
             assert(Payload::count() == v1.size());
         }
-	#endif
         // are the elements destroyed?
         assert(Payload::count() == 0);
         cout << " done." << endl;
     }
 
     {
-        cout << "push_back(), pop_back(), size(), empty() ... (there's a bunch of static count and idk what it is supposed to do)";
+        cout << "push_back(), pop_back(), size(), empty() ... ";
         {
             vector<Payload> v;
             assert(v.size() == 0);
@@ -43,22 +42,23 @@ void test_21()
             v.push_back(Payload(2,2,2));
             assert(v.size() == 3);
             assert(!v.empty());
+			cout << Payload::count() << endl;
             assert(Payload::count() == 3);
 
             assert(v.pop_back() == Payload(2,2,2));
             assert(v.size() == 2);
-//            assert(Payload::count() == 2);
+            assert(Payload::count() == 2);
 
             assert(v.pop_back() == Payload(1,1,1));
             assert(v.size() == 1);
-//            assert(Payload::count() == 1);
+            assert(Payload::count() == 1);
 
             assert(v.pop_back() == Payload(0,0,0));
             assert(v.size() == 0);
             assert(v.empty());
-//            assert(Payload::count() == 0);
+            assert(Payload::count() == 0);
         }
-//        assert(Payload::count() == 0);
+        assert(Payload::count() == 0);
         cout << " done." << endl;
     }
 

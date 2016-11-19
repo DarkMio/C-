@@ -18,11 +18,14 @@ namespace my {
 		vector(vector<T>&& rhs) : vector<T>() {
 			swap(*this, rhs);
 		}
-		vector(): m_capacity(0), m_size(0) {
-			mArray = nullptr;
-		}
-		vector(size_t const& initialSize) : m_capacity(initialSize), m_size(0) {
+		vector(size_t const& initialSize = 0, T const& x = T()) : m_capacity(initialSize), m_size(0) {
+			if (initialSize == 0) {
+				mArray = nullptr;
+				return;
+			}
 			mArray = new T[initialSize];
+			mArray[m_size] = x;
+			m_size = initialSize;
 		}
 		~vector() {
 			delete[] mArray;
@@ -45,7 +48,9 @@ namespace my {
 				temp[i] = std::move(mArray[i]);
 				mArray[i].~T();
 			}
-			free(mArray);
+			// delete[] mArray;
+			// free(mArray);
+			T::count;
 			mArray = temp;
 			m_capacity = new_capacity;
 		}
@@ -57,10 +62,11 @@ namespace my {
 		}
 		void push_back(T const& value) {
 			if (m_capacity <= m_size) {
-				m_capacity = m_capacity == 0 ? 1 : m_capacity * 2;
-				reserve(m_capacity);
+				auto new_capacity = m_capacity == 0 ? 1 : m_capacity * 2;
+				reserve(new_capacity);
 			}
 			mArray[m_size++] = value;
+			std::cout << T::count << std::endl;
 		}
 		T pop_back() {
 			T val = mArray[--m_size];

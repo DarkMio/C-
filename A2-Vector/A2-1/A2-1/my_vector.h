@@ -12,16 +12,14 @@ namespace my {
 		public:
 		vector(vector<T> const &) = delete;
 		vector<T>& operator=(vector<T> const &) = delete;
-		vector() : space(0), elements(0) {
-			mArray = nullptr;
-		}
-		vector(size_t const& initialSize, T const& x = T()) : space(initialSize), elements(0) {
+		vector(size_t const& initialSize = 0, T const& x = T()) : space(initialSize), elements(0) {
 			if (initialSize == 0) {
 				mArray = nullptr;
 				return;
 			}
 			mArray = new T[initialSize];
-			mArray[elements++] = x;
+			mArray[elements] = x;
+			elements = initialSize;
 		}
 		~vector() {
 			delete[] mArray;
@@ -30,7 +28,7 @@ namespace my {
 			return elements == 0;
 		}
 		size_t size() const {
-			return space;
+			return elements;
 		}
 		void clear() {
 			delete[] mArray;
@@ -43,7 +41,7 @@ namespace my {
 				// the good old swapperoo
 				space ++;
 				T* temp = new T[space];
-				for (int i = 0; i < elements; i++) {
+				for (size_t i = 0; i < elements; i++) {
 					temp[i] = mArray[i];
 				}
 				delete[] mArray;
@@ -55,7 +53,7 @@ namespace my {
 			T val = mArray[--elements];
 			--space;
 			T* temp = new T[space];
-			for (int i = 0; i < elements; i++) {
+			for (size_t i = 0; i < elements; i++) {
 				temp[i] = mArray[i];
 			}
 			delete[] mArray;
