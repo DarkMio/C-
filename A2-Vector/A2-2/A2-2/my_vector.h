@@ -25,11 +25,6 @@ namespace my {
 				}
 				mArray = static_cast<T*>(malloc(sizeof(T) * initialSize));
 				new(mArray + m_size++) T(x);
-
-				// mArray[m_size++] = T(x);
-				for (size_t i = m_size; i < initialSize; i++) {
-					new(mArray + m_size++) T();
-				}
 				auto n = T::count();
 			}
 			vector(size_t const& initialSize) : m_size(0), m_capacity(initialSize) {
@@ -38,15 +33,11 @@ namespace my {
 					return;
 				}
 				mArray = static_cast<T*>(malloc(sizeof(T) * initialSize));
-				for (size_t i = 0; i < initialSize; i++) {
-					new(mArray + m_size++) T();
-				}
 			}
 			vector() : m_size(0), m_capacity(0) {
 				mArray = nullptr;
 			}
 			~vector() {
-				// deconstruct each upon deletion
 				for (size_t i = 0; i < m_size; i++) {
 					mArray[i].~T();
 				}
@@ -67,11 +58,8 @@ namespace my {
 				}
 				T* temp = static_cast<T*>(malloc(sizeof(T) * new_capacity));
 				for (size_t i = 0; i < m_size; i++) {
-					// new(temp + i) T(mArray[i]);
 					temp[i] = std::move(mArray[i]);
-					// mArray[i].~T();
 				}
-				// delete[] mArray;
 				if (mArray != nullptr) {
 					free(mArray);
 				}
@@ -96,7 +84,7 @@ namespace my {
 				mArray[m_size].~T();
 				return val;
 			}
-			T operator[] (size_t const& element) const {
+			T operator[] const (size_t const& element) const {
 				return mArray[element];
 			}
 			T& operator[](size_t const& element) {
