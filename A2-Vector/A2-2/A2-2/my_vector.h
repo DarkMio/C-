@@ -10,9 +10,9 @@ namespace my {
 			size_t m_size;
 			T* mArray;
 		public:
-			vector(vector<T> const &) = delete;
+			vector(vector<T> const& rhs) : mArray(rhs.mArray) {};
 			vector<T>& operator=(vector<T> rhs) {
-				std::swap(*this, rhs);
+				swap(*this, rhs);
 				return *this;
 			}
 			vector(vector<T>&& rhs) : vector<T>() {
@@ -24,10 +24,13 @@ namespace my {
 					return;
 				}
 				mArray = static_cast<T*>(malloc(sizeof(T) * initialSize));
-				mArray[m_size++] = T(x);
+				new(mArray + m_size++) T(x);
+
+				// mArray[m_size++] = T(x);
 				for (size_t i = m_size; i < initialSize; i++) {
-					mArray[m_size++] = T();
+					new(mArray + m_size++) T();
 				}
+				auto n = T::count();
 			}
 			vector(size_t const& initialSize) : m_size(0), m_capacity(initialSize) {
 				if (initialSize == 0) {
@@ -36,7 +39,7 @@ namespace my {
 				}
 				mArray = static_cast<T*>(malloc(sizeof(T) * initialSize));
 				for (size_t i = 0; i < initialSize; i++) {
-					mArray[m_size++] = T();
+					new(mArray + m_size++) T();
 				}
 			}
 			vector() : m_size(0), m_capacity(0) {
@@ -64,11 +67,14 @@ namespace my {
 				}
 				T* temp = static_cast<T*>(malloc(sizeof(T) * new_capacity));
 				for (size_t i = 0; i < m_size; i++) {
-					temp[i] = std::move(mArray[i]);
-					// mArray[i].~T();
+					new(temp + i) T(mArray[i]);
+					// temp[i] = std::move(mArray[i]);
+					mArray[i].~T();
 				}
 				// delete[] mArray;
-				free(mArray);
+				if (mArray != nullptr) {
+					free(mArray);
+				}
 				mArray = temp;
 				m_capacity = new_capacity;
 			}
@@ -83,12 +89,11 @@ namespace my {
 					auto new_capacity = m_capacity == 0 ? 1 : m_capacity * 2;
 					reserve(new_capacity);
 				}
-				mArray[m_size++] = value;
-				std::cout << T::count << std::endl;
+				new (mArray +m_size++) T(value);
 			}
 			T pop_back() {
 				T val = mArray[--m_size];
-				mArray[m_size].~T();
+				// mArray[m_size].~T();
 				return val;
 			}
 			T operator[] (size_t const& element) const {

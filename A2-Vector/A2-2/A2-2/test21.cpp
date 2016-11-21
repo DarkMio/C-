@@ -18,12 +18,10 @@ void test_21()
         vector<Payload> v0;
         assert(v0.size() == 0);
         assert(Payload::count() == 0);
-
         {
             // are the elements created?
             vector<Payload> v1(3, Payload(-1,-1,-1));
-            assert(v1.capacity() == 3);
-			cout << Payload::count() << ":" << v1.size() << endl;
+            assert(v1.size() == 3);
             assert(Payload::count() == v1.size());
         }
         // are the elements destroyed?
@@ -43,11 +41,11 @@ void test_21()
             v.push_back(Payload(2,2,2));
             assert(v.size() == 3);
             assert(!v.empty());
-			cout << Payload::count() << endl;
             assert(Payload::count() == 3);
 
             assert(v.pop_back() == Payload(2,2,2));
             assert(v.size() == 2);
+			cout << endl << Payload::count() << endl;
             assert(Payload::count() == 2);
 
             assert(v.pop_back() == Payload(1,1,1));
