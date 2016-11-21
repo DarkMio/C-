@@ -11,8 +11,7 @@ public:
     float x, y, z;
 
     // constructors
-	Payload() : x(0), y(0), z(0) { count_++; }
-    Payload(float xx, float yy, float zz) : x(xx), y(yy), z(zz) { count_++; }
+    Payload(float xx=0, float yy=0, float zz=0) : x(xx), y(yy), z(zz) { count_++; }
     Payload(const Payload& rhs) : x(rhs.x), y(rhs.y), z(rhs.z) { count_++; }
 	Payload(Payload&& rhs) { swap(*this, rhs); count_++; }
     // destructor

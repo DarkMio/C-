@@ -2,12 +2,17 @@
 //
 
 #include "stdafx.h"
+#include "test_generic.h"
+#include "test21.h"
+#include <iostream>
 
-void test_21();
 
 int main()
 {
 	test_21();
+	test_generic<int>();
+	test_payload();
+
     return 0;
 }
 

@@ -1,10 +1,7 @@
 // Testtreiber für Aufgabe 2: my::vector
 // Autor: Hartmut Schirmacher
 
-#include <iostream>
-#include <cassert>
-#include "my_vector.h"
-#include "payload.h"
+#include "test21.h"
 
 
 void test_21()
@@ -21,7 +18,7 @@ void test_21()
         {
             // are the elements created?
             vector<Payload> v1(3, Payload(-1,-1,-1));
-            assert(v1.size() == 3);
+            assert(v1.capacity() == 3);
             assert(Payload::count() == v1.size());
         }
         // are the elements destroyed?

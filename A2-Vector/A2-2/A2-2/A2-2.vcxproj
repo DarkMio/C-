@@ -153,12 +153,17 @@
     <ClInclude Include="payload.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="test21.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="A2-2.cpp" />
     <ClCompile Include="payload.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="test21.cpp" />
+    <ClCompile Include="test_generic.cpp" />
+    <ClInclude Include="test_generic.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
