@@ -22,7 +22,8 @@ void test_21()
         {
             // are the elements created?
             vector<Payload> v1(3, Payload(-1,-1,-1));
-            assert(v1.size() == 3);
+            assert(v1.capacity() == 3);
+			cout << Payload::count() << ":" << v1.size() << endl;
             assert(Payload::count() == v1.size());
         }
         // are the elements destroyed?
