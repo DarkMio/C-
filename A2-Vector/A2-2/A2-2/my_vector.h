@@ -67,9 +67,9 @@ namespace my {
 				}
 				T* temp = static_cast<T*>(malloc(sizeof(T) * new_capacity));
 				for (size_t i = 0; i < m_size; i++) {
-					new(temp + i) T(mArray[i]);
-					// temp[i] = std::move(mArray[i]);
-					mArray[i].~T();
+					// new(temp + i) T(mArray[i]);
+					temp[i] = std::move(mArray[i]);
+					// mArray[i].~T();
 				}
 				// delete[] mArray;
 				if (mArray != nullptr) {
@@ -89,11 +89,11 @@ namespace my {
 					auto new_capacity = m_capacity == 0 ? 1 : m_capacity * 2;
 					reserve(new_capacity);
 				}
-				new (mArray +m_size++) T(value);
+				new (mArray + m_size++) T(value);
 			}
 			T pop_back() {
-				T val = mArray[--m_size];
-				// mArray[m_size].~T();
+				T val(mArray[--m_size]);
+				mArray[m_size].~T();
 				return val;
 			}
 			T operator[] (size_t const& element) const {

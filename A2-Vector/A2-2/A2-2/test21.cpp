@@ -43,9 +43,8 @@ void test_21()
             assert(!v.empty());
             assert(Payload::count() == 3);
 
-            assert(v.pop_back() == Payload(2,2,2));
+			assert(v.pop_back() == Payload(2, 2, 2));
             assert(v.size() == 2);
-			cout << endl << Payload::count() << endl;
             assert(Payload::count() == 2);
 
             assert(v.pop_back() == Payload(1,1,1));
