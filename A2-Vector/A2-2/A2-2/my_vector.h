@@ -9,6 +9,7 @@ namespace my {
 			size_t m_capacity;
 			size_t m_size;
 			T* mArray;
+			void check_element(int const& element) const;
 		public:
 			vector(vector<T> const& rhs);
 			vector<T>& operator=(vector<T> rhs) {
@@ -33,10 +34,11 @@ namespace my {
 			T& operator[](size_t const& element) {
 				return mArray[element];
 			}
-			T& at(size_t element) const;
+			T at(int const& element) const;
+			T& at(int const& element);
 			void shrink_to_fit();
 			template<typename T>
-			friend void swap(vector<T> const& lhs, vector<T> const& rhs) {
+			friend void swap(vector<T>& lhs, vector<T>& rhs) {
 				std::swap(lhs.mArray, rhs.mArray);
 				std::swap(lhs.m_capacity, rhs.m_capacity);
 				std::swap(lhs.m_size, rhs.m_size);
@@ -113,17 +115,39 @@ namespace my {
 		return val;
 	}
 	template<typename T>
-	T& vector<T>::at(size_t element) const {
-		if (element >= m_size) {
+	T vector<T>::at(int const& element) const {
+		check_element(element);
+		return mArray[element];
+	}
+	template<typename T>
+	T& vector<T>::at(int const& element) {
+		check_element(element);
+		return mArray[element];
+	}
+	template<typename T>
+	void vector<T>::check_element(int const& element) const {
+		if (element >= m_size || element < 0) {
+			int n = element + 1; // increment once, since we're writing some text now.
+			std::string ending;
+			auto x = n % 100;
+			if (x > 10 && x < 14) {
+				// increment over the 11, 12, 13, since they end with th.
+				x += 3;
+			}
+			switch (x % 10) {
+				case 1: ending = "st"; break;
+				case 2: ending = "nd"; break;
+				case 3: ending = "rd"; break;
+				default: ending = "th"; break;
+			}
 			std::stringstream ss;
-			ss << "Only " << m_size << " elements, you tried to access the " << (element + 1) << "th";
+			ss << "Only " << m_size << " elements, you tried to access the " << n << ending;
 			throw std::out_of_range(ss.str());
 		}
-		return mArray[element];
-	};
+	}
 	template<typename T>
 	void vector<T>::shrink_to_fit() {
 		m_capacity = 0;
 		reserve(m_size);
-	};
+	}
 }

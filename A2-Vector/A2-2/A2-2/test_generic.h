@@ -38,7 +38,7 @@ void test_generic() {
 		vector<T> v1(1, T());
 		assert(v0.empty());
 		assert(!v1.empty());
-		for (size_t i = 0; i < 25; i++) {
+		for (int i = 0; i < 25; i++) {
 			v0.push_back(T(i));
 			v1.push_back(T(i));
 		}
@@ -68,6 +68,23 @@ void test_generic() {
 		// and these changed?
 		assert(v0[1] == T(1));
 		assert(v1[0] == T(2));
+		cout << "DONE." << endl;
+	}
+	{
+		cout << "> Exceptions in at(): ";
+		vector<T> v0;
+		bool catched = false;
+		try {
+			v0.at(1);
+		} catch(std::out_of_range e) {
+			catched |= true;
+		}
+		try {
+			v0.at(-1);
+		} catch(std::out_of_range e) {
+			catched &= true;
+		}
+		assert(catched);
 		cout << "DONE." << endl;
 	}
 	{
@@ -102,6 +119,21 @@ void test_generic() {
 		v0.shrink_to_fit();
 		assert(v0.size() == 15);
 		assert(v0.capacity() == 15);
+		cout << "DONE." << endl;
+	}
+	{
+		cout << "> Copy construction: ";
+		vector<T> v0(25);
+		vector<T> v1(25);
+		for (int i = 0; i < 25; i++) {
+			v0.push_back(T(i));
+			v1.push_back(T(i));
+		}
+		vector<T> v2(std::move(v0));
+		for (int i = 0; i < 25; i++) {
+			assert(v1[i] == v2[i]);
+		}
+		assert(v2.size() == 25);
 		cout << "DONE." << endl;
 	}
 }
