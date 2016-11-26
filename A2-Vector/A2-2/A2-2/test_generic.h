@@ -15,6 +15,7 @@ void test_payload();
  */
 template<typename T>
 void test_generic() {
+#pragma warning(disable : 4244) // -> possible loss of data, implicit conversion
 	{
 		cout << endl << "## Testing my::vector<" << typeid(T).name() << ">" << endl;
 	}
@@ -136,4 +137,5 @@ void test_generic() {
 		assert(v2.size() == 25);
 		cout << "DONE." << endl;
 	}
+#pragma warning(default : 4244)
 }

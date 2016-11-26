@@ -126,7 +126,7 @@ namespace my {
 	}
 	template<typename T>
 	void vector<T>::check_element(int const& element) const {
-		if (element >= m_size || element < 0) {
+		if (element >= (int) m_size || element < 0) {
 			int n = element + 1; // increment once, since we're writing some text now.
 			std::string ending;
 			auto x = n % 100;
