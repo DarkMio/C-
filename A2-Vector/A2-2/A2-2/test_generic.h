@@ -62,6 +62,8 @@ void test_generic() {
 		vector<T> v1(3);
 		assert(v0[0] == T());
 		assert(v0.at(0) == T());
+		v0.push_back(T()); // increments m_size, which should be the normal case.
+		v1.push_back(T()); // same here... which makes .at() properly working (due to m_size limitations)
 		v0[1] = T(1);
 		v1[0] = T(2);
 		// still unchanged?
@@ -69,6 +71,13 @@ void test_generic() {
 		// and these changed?
 		assert(v0[1] == T(1));
 		assert(v1[0] == T(2));
+		v0.at(1) = T(3);
+		v1.at(0) = T(4);
+		// still unchanged?
+		assert(v0[0] == T());
+		// and these changed?
+		assert(v0[1] == T(3));
+		assert(v1[0] == T(4));
 		cout << "DONE." << endl;
 	}
 	{
