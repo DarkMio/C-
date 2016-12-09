@@ -45,7 +45,7 @@ namespace my {
 			}
 	};	
 	template<typename T>
-	vector<T>::vector(vector<T> const& rhs) : mArray(rhs.mArray) {};
+	vector<T>::vector(vector<T> const& rhs) : m_size(rhs.m_size), m_capacity(rhs.m_capacity), mArray(rhs.mArray) {};
 	template<typename T>
 	vector<T>::vector(vector<T>&& rhs) : vector<T>() {
 		swap(*this, rhs);
