@@ -7,6 +7,7 @@ class Surface {
 	public:
 	Surface();
 	Surface(SDL_Surface* surf);
+	Surface(char* path);
 	~Surface();
 	void fill(Uint32 const&);
 	int* size();

@@ -14,6 +14,13 @@ Surface::Surface(SDL_Surface* surf) {
 	surface = surf;
 }
 
+Surface::Surface(char * path) {
+	surface = SDL_LoadBMP(path);
+	if (surface == nullptr) {
+		throw std::exception(SDL_GetError());
+	}
+}
+
 Surface::~Surface() {
 	SDL_FreeSurface(surface);
 }
