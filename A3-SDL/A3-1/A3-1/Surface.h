@@ -9,7 +9,7 @@ class Surface {
 	Surface();
 	Surface(SDL_Surface* surf);
 	Surface(char* path);
-	Surface(Surface const& copy) = delete; // Disable Copy Constructor
+	Surface(Surface const& copy); // Copy Constructor
 	Surface(Surface&& other); // Move Constructor
 	Surface& operator=(Surface const& other); // Copy Assignment
 	Surface& operator=(Surface&& other); // Move Assignment

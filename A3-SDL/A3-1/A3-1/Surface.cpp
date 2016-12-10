@@ -21,6 +21,10 @@ Surface::Surface(char * path) {
 	}
 }
 
+Surface::Surface(Surface const & copy) {
+	surface = SDL_ConvertSurface(copy.surface, copy.surface->format, copy.surface->flags);
+}
+
 Surface::Surface(Surface && other) : surface(other.surface) {
 	other.surface = nullptr;
 }
