@@ -27,3 +27,7 @@ void Surface::fill(Uint32 const& color) {
 int* Surface::size() {
 	return new int[2] {surface->w, surface->h};
 }
+
+SDL_Surface * Surface::get_surface() const {
+	return surface;
+}

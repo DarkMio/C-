@@ -10,5 +10,6 @@ class Surface {
 	~Surface();
 	void fill(Uint32 const&);
 	int* size();
+	SDL_Surface* get_surface() const;
 };
 
