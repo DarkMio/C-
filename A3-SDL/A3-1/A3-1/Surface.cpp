@@ -21,6 +21,28 @@ Surface::Surface(char * path) {
 	}
 }
 
+Surface::Surface(Surface && other) : surface(other.surface) {
+	other.surface = nullptr;
+}
+
+Surface & Surface::operator=(Surface const & other) {
+	if (surface != nullptr) {
+		SDL_FreeSurface(surface);
+	}
+	surface = SDL_ConvertSurface(other.surface, other.surface->format, other.surface->flags);
+	return *this;
+}
+
+Surface& Surface::operator=(Surface&& other) {
+	if (this != &other) {
+		if (surface != nullptr) {
+			SDL_FreeSurface(surface);
+		}
+		std::swap(surface, other.surface);
+	}
+	return *this;
+}
+
 Surface::~Surface() {
 	SDL_FreeSurface(surface);
 }
@@ -31,8 +53,8 @@ void Surface::fill(Uint32 const& color) {
 	}
 }
 
-int* Surface::size() {
-	return new int[2] {surface->w, surface->h};
+std::tuple<int, int> Surface::size() {
+	return std::make_tuple(surface->w, surface->h);
 }
 
 SDL_Surface * Surface::get_surface() const {
