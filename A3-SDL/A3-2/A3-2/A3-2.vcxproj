@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplicationWindow.h" />
+    <ClInclude Include="Borderlayout.h" />
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="GUIUtility.h" />
     <ClInclude Include="IDrawable.h" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClCompile Include="A3-2.cpp" />
     <ClCompile Include="ApplicationWindow.cpp" />
+    <ClCompile Include="Borderlayout.cpp" />
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="GUIUtility.cpp" />
     <ClCompile Include="LayoutManager.cpp" />
