@@ -18,6 +18,7 @@
 	A PixelCanvas contains a Surface
 	  - > to update the main application surface it throws this surface downwards to blit downwards
 	      (therefore draw(Surface const& surface) down the chain)
+	  - > another update would be to upstream by: Surface& draw(const&) which gives 
 
 
 	A Layout is more or less a helper object of a Canvas
