@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <exception>
 #include <tuple>
+#include "GUIUtility.h"
 
 #pragma once
 class Surface {
@@ -16,6 +17,7 @@ class Surface {
 	Surface& operator=(Surface&& other); // Move Assignment
 	~Surface();
 	void fill(Uint32 const&);
+	void blit(Surface const& other, GUI::Rectangle const& rect);
 	std::tuple<int, int> size();
 	SDL_Surface* get_surface() const;
 };

@@ -48,6 +48,12 @@
     <ClInclude Include="Canvas.h">
       <Filter>Header Files\Managed GUI</Filter>
     </ClInclude>
+    <ClInclude Include="LayoutManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIUtility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="A3-2.cpp">
@@ -61,6 +67,12 @@
     </ClCompile>
     <ClCompile Include="Canvas.cpp">
       <Filter>Source Files\Managed GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="LayoutManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIUtility.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

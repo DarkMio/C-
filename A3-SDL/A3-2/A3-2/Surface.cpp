@@ -59,6 +59,15 @@ void Surface::fill(Uint32 const& color) {
 	}
 }
 
+void Surface::blit(Surface const& other, GUI::Rectangle const& rect) {
+	SDL_Rect rectangle;
+	rectangle.x = rect.x;
+	rectangle.y = rect.y;
+	rectangle.w = rect.w;
+	rectangle.h = rect.h;
+	SDL_BlitSurface(other.get_surface(), NULL, surface, &rectangle);
+}
+
 std::tuple<int, int> Surface::size() {
 	return std::make_tuple(surface->w, surface->h);
 }
