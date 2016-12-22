@@ -9,11 +9,11 @@
 
 int main() {
 	try {
-		AppComposite* x = &AppComposite();
+		AppComposite x;
 
 		int i = 3; // 3 seconds
 		while (i-- > 0) {
-			x->draw(); // gtfo - circumventing hacked CTORs.
+			x.draw(); // gtfo - circumventing hacked CTORs.
 			std::this_thread::sleep_for(std::chrono::seconds(1));
 		}
 	} catch (std::exception e) {

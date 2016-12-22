@@ -12,6 +12,6 @@ class AppComposite {
 	public:
 	AppComposite();
 	void draw();
-	~AppComposite() { m_window.~Window(); };
+	~AppComposite() { /* m_window.~Window();*/ };
 };
 

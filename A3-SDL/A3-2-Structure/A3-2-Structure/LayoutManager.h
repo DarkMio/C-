@@ -32,7 +32,7 @@ namespace GUI {
 		virtual bool draw(Surface const& surface, Rectangle const& rect) const override;
 		virtual void add(std::shared_ptr<LayoutManager> layout, LayoutFlags const& lflags) override;
 		virtual ~HorizontalLayout() {
-			m_children.~vector();
+			// m_children.~vector();
 		};
 	};
 

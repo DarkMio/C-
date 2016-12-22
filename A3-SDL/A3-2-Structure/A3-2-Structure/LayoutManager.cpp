@@ -36,7 +36,7 @@ void GUI::VerticalLayout::add(std::shared_ptr<LayoutManager> layout, LayoutFlags
 }
 
 GUI::VerticalLayout::~VerticalLayout() {
-	m_children.~vector();
+	// m_children.~vector();
 }
 
 GUI::PixelSpace::PixelSpace(int const & width, int const & height, Uint32 const & fill) {
