@@ -8,18 +8,14 @@
 
 
 int main() {
-	try {
-		AppComposite x;
+	AppComposite x;
 
-		int i = 3; // 3 seconds
-		while (i-- > 0) {
-			x.draw(); // gtfo - circumventing hacked CTORs.
-			std::this_thread::sleep_for(std::chrono::seconds(1));
-		}
-	} catch (std::exception e) {
-		std::cout << e.what() << std::endl;
+	int i = 30; // 3 seconds
+	while (i-- > 0) {
+		x.draw(); // gtfo - circumventing hacked CTORs.
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
-	
+
 	/*
 	SDL_Wrap::Window x(640, 480, "Twerkbot");
 	GUI::HorizontalLayout mgr();

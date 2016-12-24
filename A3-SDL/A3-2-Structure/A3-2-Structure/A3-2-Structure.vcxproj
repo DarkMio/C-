@@ -152,6 +152,7 @@
     <ClCompile Include="AppComposite.cpp" />
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="LayoutManager.cpp" />
+    <ClCompile Include="LayoutManagerImpls.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="AppComposite.h" />
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="LayoutManager.h" />
+    <ClInclude Include="LayoutManagerImpls.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Window.h" />

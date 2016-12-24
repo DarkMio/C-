@@ -35,6 +35,7 @@ namespace SDL_Wrap {
 	Surface & Surface::operator=(Surface const & other) {
 		if (surface != nullptr) {
 			SDL_FreeSurface(surface);
+			surface = nullptr;
 		}
 		surface = SDL_ConvertSurface(other.surface, other.surface->format, other.surface->flags);
 		return *this;
@@ -42,10 +43,15 @@ namespace SDL_Wrap {
 
 	Surface& Surface::operator=(Surface&& other) {
 		if (this != &other) {
+			/*
 			if (surface != nullptr) {
 				SDL_FreeSurface(surface);
 			}
-			std::swap(surface, other.surface);
+			*/
+			auto tmp = other.surface;
+			other.surface = surface;
+			surface = tmp;
+			// std::swap(surface, other.surface);
 		}
 		return *this;
 	}
@@ -53,6 +59,8 @@ namespace SDL_Wrap {
 	Surface::~Surface() {
 		if (surface == nullptr) {
 			std::cout << "Surface DTOR came across a surface with a nptr" << std::endl;
+		} else if (surface->refcount < 0) {
+			std::cout << "Surface DTOR came across a surface with negative ref cnt" << std::endl;
 		} else {
 			SDL_FreeSurface(surface);
 		}
