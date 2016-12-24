@@ -6,8 +6,10 @@
 #include <vector>
 #include <exception>
 #include <memory>
+#include <functional>
 
 using namespace SDL_Wrap;
+using namespace std;
 
 namespace GUI {
 	enum LayoutFlags {
@@ -20,10 +22,21 @@ namespace GUI {
 
 	class LayoutManager {
 		public:
-		virtual std::tuple<int, int> preferredSize() const = 0;
-		virtual std::tuple<int, int> minimumSize() const = 0;
+		virtual tuple<int, int> preferredSize() const = 0;
+		virtual tuple<int, int> minimumSize() const = 0;
 		virtual bool draw(Surface const& surface, Rectangle const& rect) const = 0;
-		virtual void add(std::shared_ptr<LayoutManager> layout, Uint32 const& lflags) = 0;
+		virtual void add(shared_ptr<LayoutManager> layout, Uint32 const& lflags) = 0;
 		virtual ~LayoutManager() {};
+	};
+
+	class LayoutMedian : public LayoutManager {
+		protected:
+		vector<shared_ptr<LayoutManager>> m_children;
+		virtual tuple<int, int> abstractSize(function<tuple<int, int>(shared_ptr<LayoutManager>)> const& callback) const;
+		virtual bool abstractDraw(Surface const& surface, Rectangle const& rect, function<int(Rectangle, int)> const& spaceCalculator, function<Rectangle(int, Rectangle, int)> const& rectFactory) const;
+		virtual void add(shared_ptr<LayoutManager> layout, Uint32 const& lflags);
+		public:
+		virtual tuple<int, int> preferredSize() const;
+		virtual tuple<int, int> minimumSize() const;
 	};
 }
