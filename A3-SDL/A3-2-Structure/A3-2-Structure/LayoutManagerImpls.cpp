@@ -1,96 +1,29 @@
 #include "LayoutManagerImpls.h"
 
-std::tuple<int, int> GUI::HorizontalLayout::preferredSize() const {
-	int x = 0;
-	int y = 0;
-	for (auto c : m_children) {
-		auto prefSize = c->preferredSize();
-		x += std::get<0>(prefSize);
-		y += std::get<1>(prefSize);
-	}
-	return std::tuple<int, int>(x, y);
-}
-
-std::tuple<int, int> GUI::HorizontalLayout::minimumSize() const {
-	int x = 0;
-	int y = 0;
-	for (auto c : m_children) {
-		auto minSize = c->minimumSize();
-		x += std::get<0>(minSize);
-		y += std::get<1>(minSize);
-	}
-	return std::tuple<int, int>(x, y);
-}
-
-bool GUI::HorizontalLayout::draw(Surface const & surface, Rectangle const & rect) const {
-	bool hasDrawn = false;
-	unsigned int distributed = rect.w / m_children.size();
-	int i = 0;
-	for (auto &c : m_children) {
-		Rectangle drawSpace(distributed, rect.h, rect.x + distributed * i, rect.y);
-		hasDrawn |= m_children[i]->draw(surface, drawSpace);
-		i++;
-	}
-
-	return hasDrawn;
-}
-
-void GUI::HorizontalLayout::add(std::shared_ptr<LayoutManager> layout, Uint32 const & lflags) {
-	m_children.push_back(std::move(layout));
-	// omit flags
-}
-
-GUI::HorizontalLayout::~HorizontalLayout() {}
-
-std::tuple<int, int> GUI::VerticalLayout::preferredSize() const {
-	int x = 0;
-	int y = 0;
-	for (auto c : m_children) {
-		auto prefSize = c->preferredSize();
-		x += std::get<0>(prefSize);
-		y += std::get<1>(prefSize);
-	}
-	return std::tuple<int, int>(x, y);
-}
-
-std::tuple<int, int> GUI::VerticalLayout::minimumSize() const {
-	int x = 0;
-	int y = 0;
-	for (auto c : m_children) {
-		auto minSize = c->minimumSize();
-		x += std::get<0>(minSize);
-		y += std::get<1>(minSize);
-	}
-	return std::tuple<int, int>(x, y);
+bool GUI::HorizontalLayout::draw(Surface const& surface, Rectangle const& rect) const {
+	int allocated_space = rect.w / m_children.size();
+	return abstractDraw(surface, rect,
+		[&rect, &allocated_space](int const& iter_cnt, auto const& current_element) {
+			return Rectangle(allocated_space, rect.h, rect.x + allocated_space * iter_cnt, rect.y);
+		}
+	);
 }
 
 bool GUI::VerticalLayout::draw(Surface const & surface, Rectangle const & rect) const {
-	bool hasDrawn = false;
-	unsigned int distributed = rect.h / m_children.size();
-	int i = 0;
-	for (auto& c : m_children) {
-		Rectangle drawSpace(rect.w, distributed, rect.x, rect.y + distributed * i);
-		hasDrawn |= m_children[i]->draw(surface, drawSpace);
-		i++;
-	}
-
-	return hasDrawn;
-}
-
-void GUI::VerticalLayout::add(std::shared_ptr<LayoutManager> layout, Uint32 const & lflags) {
-	m_children.push_back(std::move(layout));
-}
-
-GUI::VerticalLayout::~VerticalLayout() {
-	// m_children.~vector();
+	int allocated_space = rect.h / m_children.size();
+	return abstractDraw(surface, rect,
+		[&rect, &allocated_space](int const& iter_cnt, auto const& current_element) {
+			return Rectangle(rect.w, allocated_space, rect.x, rect.y + allocated_space * iter_cnt);
+		}
+	);
 }
 
 std::tuple<int, int> GUI::PixelSpace::preferredSize() const {
-	return m_minSize;
+	return m_surface.size();
 }
 
 std::tuple<int, int> GUI::PixelSpace::minimumSize() const {
-	return m_minSize;
+	return m_surface.size();
 }
 
 GUI::PixelSpace::PixelSpace(int const & width, int const & height, Uint32 const & fill) {
@@ -118,43 +51,14 @@ void GUI::PixelSpace::add(std::shared_ptr<LayoutManager> layout, Uint32 const & 
 	throw std::exception("Pixel Space may never have children.");
 }
 
-GUI::PixelSpace::~PixelSpace() {}
-
-std::tuple<int, int> GUI::HorizontalCloseLayout::preferredSize() const {
-	int x = 0;
-	int y = 0;
-	for (auto c : m_children) {
-		auto prefSize = c->preferredSize();
-		x += std::get<0>(prefSize);
-		y += std::get<1>(prefSize);
-	}
-	return std::tuple<int, int>(x, y);
-}
-
-std::tuple<int, int> GUI::HorizontalCloseLayout::minimumSize() const {
-	int x = 0;
-	int y = 0;
-	for (auto c : m_children) {
-		auto minSize = c->minimumSize();
-		x += std::get<0>(minSize);
-		y += std::get<1>(minSize);
-	}
-	return std::tuple<int, int>(x, y);
-}
-
 bool GUI::HorizontalCloseLayout::draw(Surface const & surface, Rectangle const & rect) const {
-	bool hasDrawn = false;
-	int usedWidth = 0;
-	for (auto c : m_children) {
-		int child_x = std::get<0>(c->preferredSize());
-		hasDrawn |= c->draw(surface, Rectangle(child_x, rect.h, usedWidth, rect.y));
-		usedWidth += child_x;
+	int used_width = 0;
+	return abstractDraw(surface, rect,
+	[&rect, &used_width](int const& iter_cnt, auto const& element) {
+		int child_x = std::get<0>(element->preferredSize());
+		Rectangle x = Rectangle(child_x, rect.h, used_width, rect.y);
+		used_width += child_x;
+		return x;
 	}
-	return hasDrawn;
+	);
 }
-
-void GUI::HorizontalCloseLayout::add(std::shared_ptr<LayoutManager> layout, Uint32 const & lflags) {
-	m_children.push_back(layout);
-}
-
-GUI::HorizontalCloseLayout::~HorizontalCloseLayout() {}

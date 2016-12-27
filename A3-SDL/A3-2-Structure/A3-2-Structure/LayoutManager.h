@@ -32,11 +32,11 @@ namespace GUI {
 	class LayoutMedian : public LayoutManager {
 		protected:
 		vector<shared_ptr<LayoutManager>> m_children;
-		virtual tuple<int, int> abstractSize(function<tuple<int, int>(shared_ptr<LayoutManager>)> const& callback) const;
-		virtual bool abstractDraw(Surface const& surface, Rectangle const& rect, function<int(Rectangle, int)> const& spaceCalculator, function<Rectangle(int, Rectangle, int)> const& rectFactory) const;
-		virtual void add(shared_ptr<LayoutManager> layout, Uint32 const& lflags);
+		virtual tuple<int, int> abstractSize(function<tuple<int, int>(shared_ptr<LayoutManager> const&)> const& callback) const;
+		virtual bool abstractDraw(Surface const& surface, Rectangle const& rect, function<Rectangle(int const&, shared_ptr<LayoutManager> const&)> const&) const;
 		public:
 		virtual tuple<int, int> preferredSize() const;
 		virtual tuple<int, int> minimumSize() const;
+		virtual void add(shared_ptr<LayoutManager> layout, Uint32 const& lflags);
 	};
 }

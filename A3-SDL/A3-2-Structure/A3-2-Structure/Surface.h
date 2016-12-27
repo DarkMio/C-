@@ -20,7 +20,7 @@ namespace SDL_Wrap {
 		~Surface();
 		void fill(Uint32 const&);
 		void blit(Surface const& other, GUI::Rectangle const& rect) const;
-		std::tuple<int, int> size();
+		std::tuple<int, int> size() const;
 		SDL_Surface* get_surface() const;
 	};
 }

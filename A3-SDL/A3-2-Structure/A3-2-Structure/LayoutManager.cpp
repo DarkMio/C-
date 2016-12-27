@@ -10,7 +10,7 @@ tuple<int, int> GUI::LayoutMedian::minimumSize() const {
 }
 
 tuple<int, int> GUI::LayoutMedian::abstractSize(
-	function<tuple<int, int>(shared_ptr<LayoutManager>)> const& callback) const {
+	function<tuple<int, int>(shared_ptr<LayoutManager> const&)> const& callback) const {
 	int x = 0;
 	int y = 0;
 	for (auto c : m_children) {
@@ -24,15 +24,14 @@ tuple<int, int> GUI::LayoutMedian::abstractSize(
 bool GUI::LayoutMedian::abstractDraw(
 	Surface const& surface,
 	Rectangle const& rect,
-	function<int(Rectangle, int)> const& spaceCalculator,
-	function<Rectangle(int, Rectangle, int)> const& rectFactory
-	) const {
+	function<Rectangle(int const& iter_cnt, shared_ptr<LayoutManager> const& element)> const& for_each_cb
+) const  {
 	bool hasDrawn = false;
-	int allocedSpace = spaceCalculator(rect, m_children.size());
+	// welp, here are pre calculations
 	int i = 0;
-	for (auto c : m_children) {
-		Rectangle drawSpace = rectFactory(i, rect, allocedSpace);
-		hasDrawn |= m_children[i]->draw(surface, drawSpace);
+	for(auto c: m_children) {
+		Rectangle rect = for_each_cb(i, c);
+		hasDrawn |= c->draw(surface, rect);
 		i++;
 	}
 	return hasDrawn;

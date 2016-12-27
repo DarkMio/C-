@@ -82,7 +82,7 @@ namespace SDL_Wrap {
 		// SDL_BlitSurface(surface, NULL, other.get_surface(), &rectangle);
 	}
 
-	std::tuple<int, int> Surface::size() {
+	std::tuple<int, int> Surface::size() const {
 		return std::make_tuple(surface->w, surface->h);
 	}
 
