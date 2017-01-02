@@ -60,6 +60,9 @@
     <ClCompile Include="LayoutManagerImpls.cpp">
       <Filter>Source Files\GUI\LayoutManager</Filter>
     </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Canvas.h">
@@ -82,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="LayoutManagerImpls.h">
       <Filter>Header Files\GUI\LayoutManager</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

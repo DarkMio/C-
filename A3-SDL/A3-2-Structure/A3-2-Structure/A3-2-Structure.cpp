@@ -10,10 +10,9 @@
 int main() {
 	AppComposite x;
 
-	int i = 30; // 3 seconds
-	while (i-- > 0) {
-		x.draw(); // gtfo - circumventing hacked CTORs.
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+	int i = 3000; // 3 seconds
+	while (x.draw()) {
+		// std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
 
 	/*
