@@ -13,7 +13,7 @@ class AppComposite {
 	SDL_Wrap::Window m_window;
 	// SDL_Wrap::Surface m_surface;
 	GUI::EventManager m_events;
-	GUI::Layout m_layout;
+	GUI::ManagedLayout m_layout;
 	bool m_quit;
 	// std::shared_ptr<GUI::LayoutManager> m_lmgr;
 	public:

@@ -14,17 +14,23 @@ using namespace SDL_Wrap;
 namespace GUI {
 	template<typename T>
 	bool draw(T const& x, Surface const& surface, Rectangle const& rect) {
-		x.draw(surface, rect);
+		std::cout << "HELP - TRIED TO DRAW, HAS NO DRAW: " << typeid(x).name() << endl;
+		return false;
+		// x.draw(surface, rect);
 	}
 
 	template<typename T>
 	tuple<int, int> minimumSize(T const& x) {
-		return x.minimumSize();
+		std::cout << "HELP - TRIED TO MINSIZE, HAS NO MINSIZE: " << typeid(x).name() << endl;
+		return make_tuple(0, 0);
+		// return x.minimumSize();
 	}
 
 	template<typename T>
 	tuple<int, int> preferredSize(T const& x) {
-		return x.preferredSize();
+		std::cout << "HELP - TRIED TO PREFSIZE, HAS NO PREFSIZE: " << typeid(x).name() << endl;
+		return make_tuple(0, 0);
+		// return x.preferredSize();
 	}
 
 	class Drawable {
@@ -98,6 +104,49 @@ namespace GUI {
 		return tuple<int, int>(x, y);
 	}
 
+	using LayoutGroup = tuple<Drawable, function<Rectangle(Rectangle const&, int const&, int const&)>>;
+	inline bool draw(LayoutGroup const& x, Surface const& surface, Rectangle const& rect) {
+		return draw(get<0>(x), surface, rect);
+	}
+	inline tuple<int, int> minimumSize(LayoutGroup const& layout) {
+		return minimumSize(get<0>(layout));
+	}
+	inline tuple<int, int> preferredSize(LayoutGroup const& layout) {
+		return preferredSize(get<0>(layout));
+	}
+	
+	using ManagedLayout = vector<LayoutGroup>;
+	inline bool draw(ManagedLayout const& x, Surface const& surface, Rectangle const& rect) {
+		bool retVal = false;
+		for (int i = 0; i < x.size(); i++) {
+			auto element = x[i];
+			retVal |= draw(element, surface, get<1>(element)(rect, i, x.size()));
+		}
+		return retVal;
+	}
+	inline tuple<int, int> minimumSize(ManagedLayout const& layout) {
+		int x = 0;
+		int y = 0;
+
+		for(auto const& c: layout) {
+			auto size = minimumSize(c);
+			x += get<0>(size);
+			y += get<1>(size);
+		}
+		return make_tuple(x, y);
+	}
+	inline tuple<int, int> preferredSize(ManagedLayout const& layout) {
+		int x = 0;
+		int y = 0;
+
+		for (auto const& c : layout) {
+			auto size = preferredSize(c);
+			x += get<0>(size);
+			y += get<1>(size);
+		}
+		return make_tuple(x, y);
+	}
+
 	/*-
 	class ManagedLayout {
 		protected:
@@ -141,10 +190,11 @@ namespace GUI {
 	*/
 	class PixelSpace {
 		private:
+		
+		public:
 		Surface m_surface;
 		tuple<int, int> m_minSize;
 		bool mutable m_dirty;
-		public:
 		PixelSpace() = delete;
 		PixelSpace(int const& width, int const& height, Uint32 const& fill) {
 			SDL_Surface* surf = SDL_CreateRGBSurface(0, width, height, 32,
@@ -158,23 +208,24 @@ namespace GUI {
 			m_dirty = true;
 		}
 
-		friend inline tuple<int, int> minimumSize(PixelSpace const& pixel) {
-			return pixel.m_minSize;
-		}
-
-		friend inline tuple<int, int> preferredSize(PixelSpace const& pixel) {
-			return pixel.m_minSize;
-		}
-
-		friend inline bool draw(PixelSpace const& pixel, Surface const& surface, Rectangle const& rect) {
-			if (pixel.m_dirty) {
-				surface.blit(pixel.m_surface, rect);
-				pixel.m_dirty = false;
-				return true;
-			}
-			return false;
-		}
+		
 	};
+	inline tuple<int, int> minimumSize(PixelSpace const& pixel) {
+		return pixel.m_minSize;
+	}
+
+	inline tuple<int, int> preferredSize(PixelSpace const& pixel) {
+		return pixel.m_minSize;
+	}
+
+	inline bool draw(PixelSpace const& pixel, Surface const& surface, Rectangle const& rect) {
+		if (pixel.m_dirty) {
+			surface.blit(pixel.m_surface, rect);
+			pixel.m_dirty = false;
+			return true;
+		}
+		return false;
+	}
 
 	
 }

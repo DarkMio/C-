@@ -13,7 +13,7 @@
 using namespace std;
 
 namespace GUI {
-
+	/*
 	class LayoutManager {
 		public:
 		virtual Rectangle next(Rectangle const& totalSpace, unsigned int count, unsigned int size) = 0;
@@ -66,5 +66,5 @@ namespace GUI {
 			return retVal;
 		}
 	};
-
+	*/
 }

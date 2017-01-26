@@ -18,10 +18,15 @@ int main() {
 		z.blit(y, GUI::Rectangle(10, 10, 0, 0));
 	}
 	*/
+#if 0
 	{
 		GUI::Layout x;
 		x.push_back(GUI::PixelSpace(10, 10, 0xFFFFFFFF));
 		x.push_back(GUI::PixelSpace(25, 25, 0xFFFFFFFF));
+		x.push_back(GUI::Layout());
+		for(auto const& c: x) {
+			GUI::draw(c, Surface(), GUI::Rectangle(10, 10, 0, 0));
+		}
 		auto y = GUI::preferredSize(x);
 		std::cout << "prefSize [" << std::get<0>(y) << "," << std::get<1>(y) << "]" << std::endl;
 	}
@@ -35,7 +40,7 @@ int main() {
 		x.update();
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
-
+#endif
 	{
 		AppComposite x;
 		x.draw();
