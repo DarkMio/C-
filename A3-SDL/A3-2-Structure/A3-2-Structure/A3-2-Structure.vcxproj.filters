@@ -66,6 +66,9 @@
     <ClCompile Include="OptimizedFields.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Views.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Canvas.h">
@@ -97,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="SDL_Pointer.h">
       <Filter>Header Files\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="Views.h">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

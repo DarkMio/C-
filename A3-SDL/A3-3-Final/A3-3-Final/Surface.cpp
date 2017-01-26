@@ -1,4 +1,5 @@
 #include "Surface.h"
+#include <cassert>
 
 namespace SDL_Wrap {
 
@@ -87,5 +88,4 @@ namespace SDL_Wrap {
 	SDL_Surface* Surface::get_surface() const {
 		return m_surface.get();
 	}
-	
 }

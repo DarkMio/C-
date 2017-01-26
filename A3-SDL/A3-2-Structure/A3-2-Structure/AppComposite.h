@@ -16,7 +16,8 @@ class AppComposite {
 	// SDL_Wrap::Surface m_surface;
 	
 	bool m_quit;
-	OptimizedFields m_lmgr;
+	shared_ptr<LayoutManager> m_lmgr;
+	EventManager m_events;
 	public:
 	AppComposite();
 	bool draw();

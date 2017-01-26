@@ -69,6 +69,7 @@ bool GUI::PixelSpace::setup_eventlistener(EventManager& e_mgr) {
 
 	e_mgr.subscribe(SDL_MOUSEMOTION, [=](SDL_Event const& event) {
 		// this is the absolute position
+
 		auto x = event.motion.x;
 		auto y = event.motion.y;
 
@@ -77,7 +78,6 @@ bool GUI::PixelSpace::setup_eventlistener(EventManager& e_mgr) {
 			old_y = -1;
 			return false;
 		}
-
 
 		// and now relative positions
 		x -= m_last_pos.x;
@@ -132,4 +132,18 @@ bool GUI::HorizontalCloseLayout::draw(Surface const & surface, Rectangle const &
 		return x;
 	}
 	);
+}
+
+bool GUI::VerticalCloseLayout::draw(Surface const& surface, Rectangle const& rect) const {
+	int used_height = 0;
+	return abstractDraw(surface, rect,
+						[&rect, &used_height](int const& iter_cnt, auto const& element)
+	{
+		int child_y = std::get<1>(element->preferredSize());
+		Rectangle y = Rectangle(rect.w, child_y, rect.x, used_height);
+		used_height += child_y;
+		return y;
+	}
+	);
+
 }

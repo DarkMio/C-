@@ -7,6 +7,10 @@
 #include <tuple>
 #include "Surface.h"
 #include "Rectangle.h"
+#include <cassert>
+#include <stack>
+#include "EventManager.h"
+#include <atomic>
 
 using namespace std;
 using namespace SDL_Wrap;
@@ -118,7 +122,7 @@ namespace GUI {
 	using ManagedLayout = vector<LayoutGroup>;
 	inline bool draw(ManagedLayout const& x, Surface const& surface, Rectangle const& rect) {
 		bool retVal = false;
-		for (int i = 0; i < x.size(); i++) {
+		for (unsigned int i = 0; i < x.size(); i++) {
 			auto element = x[i];
 			retVal |= draw(element, surface, get<1>(element)(rect, i, x.size()));
 		}
@@ -208,24 +212,56 @@ namespace GUI {
 			m_dirty = true;
 		}
 
-		
-	};
-	inline tuple<int, int> minimumSize(PixelSpace const& pixel) {
-		return pixel.m_minSize;
-	}
+		PixelSpace(int const& width, int const& height, Uint32 const& fill, EventManager& mgr) {
+			mgr.subscribe(SDL_MOUSEBUTTONDOWN, [=](SDL_Event const& x) {
+				fillRandom();
+				return true;
+			});
 
-	inline tuple<int, int> preferredSize(PixelSpace const& pixel) {
-		return pixel.m_minSize;
-	}
-
-	inline bool draw(PixelSpace const& pixel, Surface const& surface, Rectangle const& rect) {
-		if (pixel.m_dirty) {
-			surface.blit(pixel.m_surface, rect);
-			pixel.m_dirty = false;
-			return true;
+			SDL_Surface* surf = SDL_CreateRGBSurface(0, width, height, 32,
+													 0xff000000,
+													 0x00ff0000,
+													 0x0000ff00,
+													 0x000000ff);
+			m_surface = Surface(move(surf));
+			m_surface.fill(fill);
+			m_minSize = tuple<int, int>(width, height);
+			m_dirty = true;
 		}
-		return false;
-	}
 
+		inline void fillRandom() {
+			Uint32 color = 0xFF;
+			color |= rand() << 8;
+			color |= rand() << 16;
+			color |= rand() << 24;
+			m_dirty = true;
+			m_surface.fill(color);
+		}
+
+		inline void setup(EventManager& mgr) {
+			
+		}
+
+		friend inline tuple<int, int> minimumSize(PixelSpace const& pixel) {
+			return pixel.m_minSize;
+		}
+
+		friend inline tuple<int, int> preferredSize(PixelSpace const& pixel) {
+			return pixel.m_minSize;
+		}
+
+		friend inline bool draw(PixelSpace const& pixel, Surface const& surface, Rectangle const& rect) {
+			if (pixel.m_dirty) {
+				surface.blit(pixel.m_surface, rect);
+				pixel.m_dirty = false;
+				return true;
+			}
+			return false;
+		}
+	};
+	using history_t = vector<ManagedLayout> ;
+	inline void commit(history_t& x) { assert(x.size()); x.push_back(x.back()); }
+	inline void undo(history_t& x) { assert(x.size()); x.pop_back(); }
+	inline ManagedLayout& current(history_t& x) { assert(x.size()); return x.back(); }
 	
 }

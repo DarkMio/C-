@@ -21,6 +21,11 @@ namespace GUI {
 		virtual bool draw(Surface const& surface, Rectangle const& rect) const override;
 	};
 
+	class VerticalCloseLayout : public VerticalLayout {
+		public:
+		virtual bool draw(Surface const& surface, Rectangle const& rect) const override;
+	};
+
 	class PixelSpace : public LayoutManager {
 		private:
 		Surface m_surface;

@@ -43,8 +43,8 @@ int main() {
 #endif
 	{
 		AppComposite x;
-		x.draw();
-		this_thread::sleep_for(seconds(3));
+		while (x.draw()) {
+		}
 	}
 
 	return 0;

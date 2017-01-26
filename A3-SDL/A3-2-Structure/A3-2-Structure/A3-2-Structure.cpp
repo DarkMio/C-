@@ -1,4 +1,4 @@
-#include "Window.h"
+﻿#include "Window.h"
 #include "LayoutManager.h"
 #include <thread>
 #include <chrono>

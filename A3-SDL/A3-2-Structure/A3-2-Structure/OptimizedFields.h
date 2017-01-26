@@ -44,6 +44,17 @@ class OptimizedFields {
 			color -= 0x01000100;
 		}
 		*/
+
+		m_layoutRoot = make_unique<HorizontalCloseLayout>();
+
+		auto left = make_shared<VerticalLayout>();
+		auto right = make_shared<VerticalLayout>();
+
+		left->add(make_shared<GUI::PixelSpace>(160, 480, 0x3AA0A0FF), 0);
+		right->add(make_shared<GUI::PixelSpace>(480, 480, 0xAAAAAAFF), 0);
+
+		m_layoutRoot->add(move(left), 0);
+		m_layoutRoot->add(move(right), 0);
 	};
 
 	bool draw(Surface const& surf) {
