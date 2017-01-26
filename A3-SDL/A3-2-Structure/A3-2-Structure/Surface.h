@@ -1,13 +1,17 @@
 #pragma once
 
+#include <memory>
 #include <tuple>
 #include <SDL.h>
 #include "Rectangle.h"
-#include <iostream>
+#include "SDL_Pointer.h"
+
+using namespace std;
 
 namespace SDL_Wrap {
+
 	class Surface {
-		SDL_Surface* surface;
+		SurfacePtr m_surface;
 		public:
 		Surface();
 		Surface(size_t const& width, size_t const& height);

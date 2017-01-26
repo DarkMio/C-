@@ -68,10 +68,12 @@ namespace GUI {
 
 	using Layout = vector<Drawable>;
 
-	inline void draw(Layout const& x, Surface const& surface, Rectangle const& rect) {
+	inline bool draw(Layout const& x, Surface const& surface, Rectangle const& rect) {
+		bool retVal = false;
 		for (Drawable const& element : x) {
-			draw(element, surface, rect);
+			retVal |= draw(element, surface, rect);
 		}
+		return retVal;
 	};
 
 	inline tuple<int, int> minimumSize(Layout const& layout) {
@@ -96,6 +98,47 @@ namespace GUI {
 		return tuple<int, int>(x, y);
 	}
 
+	/*-
+	class ManagedLayout {
+		protected:
+		vector<Layout> m_layout;
+		function<Rectangle (Rectangle const&, int const&, int const&)> next;
+		public:
+		ManagedLayout() = delete;
+		ManagedLayout(Layout const& layout, function<Rectangle(Rectangle const&, int const&, int const&)> const& func) : m_layout(layout), next(func) {}
+
+
+		inline friend bool draw(ManagedLayout const& x, Surface const& surface, Rectangle const& rect) {
+			bool retVal = false;
+			for (int i = 0; i < x.m_layout.size(); i++) {
+				retVal |= draw(x.m_layout[i], surface, x.next(rect, i, x.m_layout.size()));
+			}
+			return retVal;
+		}
+
+		inline friend tuple<int, int> minimumSize(ManagedLayout const& layout) {
+			minimumSize(layout.m_layout);
+		}
+		inline friend tuple<int, int> preferredSize(ManagedLayout const& layout) {
+			preferredSize(layout.m_layout);
+		}
+	};
+	/*
+	using ManagedLayout = tuple<Layout, unique_ptr<LayoutManager>>;
+	inline bool draw(ManagedLayout const& x, Surface const& surface, Rectangle const& rect) {
+		bool retVal = false;
+		for(int i = 0; i < get<0>(x).size(); i++) {
+			retVal |= draw(get<0>(x)[i], surface, get<1>(x)->next(rect, i, get<0>(x).size()));
+		}
+		return retVal;
+	}
+	inline tuple<int, int> minimumSize(ManagedLayout const& layout) {
+		minimumSize(get<0>(layout));
+	}
+	inline tuple<int, int> preferredSize(ManagedLayout const& layout) {
+		preferredSize(get<0>(layout));
+	}
+	*/
 	class PixelSpace {
 		private:
 		Surface m_surface;

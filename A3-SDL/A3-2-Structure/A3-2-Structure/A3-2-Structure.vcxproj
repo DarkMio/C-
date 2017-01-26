@@ -157,6 +157,7 @@
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="LayoutManager.cpp" />
     <ClCompile Include="LayoutManagerImpls.cpp" />
+    <ClCompile Include="OptimizedFields.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -167,7 +168,9 @@
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="LayoutManager.h" />
     <ClInclude Include="LayoutManagerImpls.h" />
+    <ClInclude Include="OptimizedFields.h" />
     <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="SDL_Pointer.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

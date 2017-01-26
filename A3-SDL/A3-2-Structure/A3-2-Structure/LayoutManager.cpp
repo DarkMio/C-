@@ -10,7 +10,8 @@ tuple<int, int> GUI::LayoutMedian::minimumSize() const {
 }
 
 tuple<int, int> GUI::LayoutMedian::abstractSize(
-	function<tuple<int, int>(shared_ptr<LayoutManager> const&)> const& callback) const {
+	function<tuple<int, int>(shared_ptr<LayoutManager> const&)> const& callback
+) const {
 	int x = 0;
 	int y = 0;
 	for (auto c : m_children) {

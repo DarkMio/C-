@@ -4,27 +4,14 @@
 #include <tuple>
 #include <SDL.h>
 #include "Rectangle.h"
-#include <iostream>
+#include "SDL_Pointer.h"
 
 using namespace std;
 
 namespace SDL_Wrap {
-	struct SDL_Deleter {
-		void operator()(SDL_Surface*  ptr) { if (ptr) SDL_FreeSurface(ptr); }
-		void operator()(SDL_Texture*  ptr) { if (ptr) SDL_DestroyTexture(ptr); }
-		void operator()(SDL_Renderer* ptr) { if (ptr) SDL_DestroyRenderer(ptr); }
-		void operator()(SDL_Window*   ptr) { if (ptr) SDL_DestroyWindow(ptr); }
-		void operator()(SDL_RWops*    ptr) { if (ptr) SDL_RWclose(ptr); }
-	};
-
-	using SurfacePtr = std::unique_ptr<SDL_Surface, SDL_Deleter>;
-	using TexturePtr = std::unique_ptr<SDL_Texture, SDL_Deleter>;
-	using RendererPtr = std::unique_ptr<SDL_Renderer, SDL_Deleter>;
-	using WindowPtr = std::unique_ptr<SDL_Window, SDL_Deleter>;
-	using RWopsPtr = std::unique_ptr<SDL_RWops, SDL_Deleter>;
 
 	class Surface {
-		SurfacePtr surface;
+		SurfacePtr m_surface;
 		public:
 		Surface();
 		Surface(size_t const& width, size_t const& height);
@@ -38,6 +25,6 @@ namespace SDL_Wrap {
 		void fill(Uint32 const&);
 		void blit(Surface const& other, GUI::Rectangle const& rect) const;
 		std::tuple<int, int> size() const;
-		// SDL_Surface* get_surface() const;
+		SDL_Surface* get_surface() const;
 	};
 }

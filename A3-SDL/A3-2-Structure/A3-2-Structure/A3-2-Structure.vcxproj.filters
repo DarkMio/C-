@@ -63,6 +63,9 @@
     <ClCompile Include="EventManager.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="OptimizedFields.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Canvas.h">
@@ -88,6 +91,12 @@
     </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="OptimizedFields.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_Pointer.h">
+      <Filter>Header Files\SDL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

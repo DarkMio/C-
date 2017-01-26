@@ -149,14 +149,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="A3-3-Final.cpp" />
+    <ClCompile Include="AppComposite.cpp" />
     <ClCompile Include="Drawable.cpp" />
+    <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="LayoutManager.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Surface.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AppComposite.h" />
     <ClInclude Include="Drawable.h" />
+    <ClInclude Include="EventManager.h" />
+    <ClInclude Include="LayoutManager.h" />
     <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="SDL_Pointer.h" />
     <ClInclude Include="Surface.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

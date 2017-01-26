@@ -6,68 +6,66 @@ namespace SDL_Wrap {
 	Surface::Surface() : Surface(640, 480) {}
 
 	Surface::Surface(size_t const& width, size_t const& height) {
-		surface = SDL_CreateRGBSurface(0, width, height, 32,
-									   0xff000000,
-									   0x00ff0000,
-									   0x0000ff00,
-									   0x000000ff);
+		m_surface = SurfacePtr(
+			SDL_CreateRGBSurface(0, width, height, 32,
+								 0xff000000,
+								 0x00ff0000,
+								 0x0000ff00,
+								 0x000000ff)
+		);
 	}
 
 	Surface::Surface(SDL_Surface* surf) {
-		surface = surf;
+		m_surface = SurfacePtr(surf);
 	}
 
 	Surface::Surface(char * path) {
-		surface = SDL_LoadBMP(path);
-		if (surface == nullptr) {
+		m_surface = SurfacePtr(SDL_LoadBMP(path));
+		if (m_surface == nullptr) {
 			throw std::exception(SDL_GetError());
 		}
 	}
 
 	Surface::Surface(Surface const & copy) {
-		surface = SDL_ConvertSurface(copy.surface, copy.surface->format, copy.surface->flags);
+		m_surface = SurfacePtr(SDL_ConvertSurface(copy.m_surface.get(), copy.m_surface->format, copy.m_surface->flags));
 	}
 
-	Surface::Surface(Surface && other) : surface(other.surface) {
-		other.surface = nullptr;
+	Surface::Surface(Surface && other) : m_surface(move(other.m_surface)) {
+		other.m_surface = nullptr;
 	}
 
 	Surface & Surface::operator=(Surface const & other) {
-		if (surface != nullptr) {
-			SDL_FreeSurface(surface);
-			surface = nullptr;
-		}
-		surface = SDL_ConvertSurface(other.surface, other.surface->format, other.surface->flags);
+		m_surface = SurfacePtr(SDL_ConvertSurface(other.m_surface.get(), other.m_surface->format, other.m_surface->flags));
 		return *this;
 	}
 
 	Surface& Surface::operator=(Surface&& other) {
 		if (this != &other) {
 			/*
-			if (surface != nullptr) {
-				SDL_FreeSurface(surface);
+			if (m_surface != nullptr) {
+			SDL_FreeSurface(m_surface);
 			}
 			*/
-			auto tmp = other.surface;
-			other.surface = surface;
-			surface = tmp;
-			// std::swap(surface, other.surface);
+			std::swap(m_surface, other.m_surface);
 		}
 		return *this;
 	}
 
 	Surface::~Surface() {
-		if (surface == nullptr) {
-			std::cout << "Surface DTOR came across a surface with a nptr" << std::endl;
-		} else if (surface->refcount < 0) {
-			std::cout << "Surface DTOR came across a surface with negative ref cnt" << std::endl;
+
+		/*
+		if (m_surface == nullptr) {
+		std::cout << "Surface DTOR came across a m_surface with a nptr" << std::endl;
+		} else if (m_surface->refcount < 0) {
+		std::cout << "Surface DTOR came across a m_surface with negative ref cnt" << std::endl;
 		} else {
-			SDL_FreeSurface(surface);
+		SDL_FreeSurface(m_surface.get());
 		}
+		*/
 	}
 
 	void Surface::fill(Uint32 const& color) {
-		if (SDL_FillRect(surface, NULL, color)) {
+		if (SDL_FillRect(m_surface.get(), NULL, color)) {
 			throw std::exception(SDL_GetError());
 		}
 	}
@@ -78,15 +76,16 @@ namespace SDL_Wrap {
 		rectangle.y = rect.y;
 		rectangle.w = rect.w;
 		rectangle.h = rect.h;
-		SDL_BlitSurface(other.get_surface(), NULL, surface, &rectangle);
-		// SDL_BlitSurface(surface, NULL, other.get_surface(), &rectangle);
+		SDL_BlitSurface(other.m_surface.get(), NULL, m_surface.get(), &rectangle);
+		// SDL_BlitSurface(m_surface, NULL, other.get_surface(), &rectangle);
 	}
 
 	std::tuple<int, int> Surface::size() const {
-		return std::make_tuple(surface->w, surface->h);
+		return std::make_tuple(m_surface->w, m_surface->h);
 	}
 
-	SDL_Surface * Surface::get_surface() const {
-		return surface;
+	SDL_Surface* Surface::get_surface() const {
+		return m_surface.get();
 	}
+
 }
