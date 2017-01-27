@@ -11,10 +11,10 @@ AppComposite::AppComposite() : m_window(640, 480, "Haram-Bae"), m_quit(false), m
 	auto left = make_shared<VerticalLayout>();
 	auto right = make_shared<VerticalLayout>();
 
-	auto rightField = std::make_shared<GUI::PixelSpace>(480, 480, 0xAAAAAAFF);
+	auto rightField = std::make_shared<Views::DrawPanel>(480, 480);
 	rightField->setup_eventlistener(m_events);
 
-	left->add(make_shared<Views::ButtonsView>(Rectangle(160, 480, 0, 0)), 0);
+	left->add(make_shared<Views::ButtonsView>(Rectangle(160, 480, 0, 0), m_events), 0);
 	right->add(rightField, 0);
 
 	m_lmgr->add(move(left), 0);
@@ -33,6 +33,8 @@ AppComposite::AppComposite() : m_window(640, 480, "Haram-Bae"), m_quit(false), m
 		m_quit = true;
 		return true;
 	});
+	m_window.getSurface().fill(0xF3F4F5FF);
+
 }
 
 bool AppComposite::draw() {

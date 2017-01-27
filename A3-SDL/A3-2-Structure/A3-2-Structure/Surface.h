@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include "Rectangle.h"
 #include "SDL_Pointer.h"
+#include <string>
 
 using namespace std;
 
@@ -16,7 +17,7 @@ namespace SDL_Wrap {
 		Surface();
 		Surface(size_t const& width, size_t const& height);
 		Surface(SDL_Surface* surf);
-		Surface(char* path);
+		Surface(string path);
 		Surface(Surface const& copy); // Copy Constructor
 		Surface(Surface&& other); // Move Constructor
 		Surface& operator=(Surface const& other); // Copy Assignment

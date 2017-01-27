@@ -19,8 +19,11 @@ namespace SDL_Wrap {
 		m_surface = SurfacePtr(surf);
 	}
 
-	Surface::Surface(char * path) {
-		m_surface = SurfacePtr(SDL_LoadBMP(path));
+	Surface::Surface(string path) {
+		char arr[1024];
+		strcpy_s(arr, path.c_str());
+
+		m_surface = SurfacePtr(SDL_LoadBMP(arr));
 		if (m_surface == nullptr) {
 			throw std::exception(SDL_GetError());
 		}

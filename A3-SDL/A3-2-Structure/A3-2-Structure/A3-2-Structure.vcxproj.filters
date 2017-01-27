@@ -31,6 +31,9 @@
     <Filter Include="Source Files\GUI\LayoutManager">
       <UniqueIdentifier>{cd6f9b36-f1b5-4918-8ca2-3c5464661005}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\img">
+      <UniqueIdentifier>{0e8b8527-5a0e-419e-8708-a87e7757189a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -104,5 +107,22 @@
     <ClInclude Include="Views.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="eraser.bmp">
+      <Filter>Resource Files\img</Filter>
+    </Image>
+    <Image Include="eyedropper.bmp">
+      <Filter>Resource Files\img</Filter>
+    </Image>
+    <Image Include="fill.bmp">
+      <Filter>Resource Files\img</Filter>
+    </Image>
+    <Image Include="pencil.bmp">
+      <Filter>Resource Files\img</Filter>
+    </Image>
   </ItemGroup>
 </Project>

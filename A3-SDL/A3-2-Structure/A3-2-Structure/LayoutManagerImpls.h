@@ -27,7 +27,7 @@ namespace GUI {
 	};
 
 	class PixelSpace : public LayoutManager {
-		private:
+		protected:
 		Surface m_surface;
 		std::tuple<int, int> m_minSize;
 		mutable bool m_dirty;

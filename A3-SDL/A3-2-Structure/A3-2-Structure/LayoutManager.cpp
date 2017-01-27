@@ -1,12 +1,17 @@
 #include "LayoutManager.h"
+#include <algorithm>
 
 
 tuple<int, int> GUI::LayoutMedian::preferredSize() const {
-	return abstractSize([](shared_ptr<LayoutManager> x) { return x->preferredSize(); });
+	return abstractSize([=](shared_ptr<LayoutManager> x){
+		return x->preferredSize();
+	});
 }
 
 tuple<int, int> GUI::LayoutMedian::minimumSize() const {
-	return abstractSize([](shared_ptr<LayoutManager> x) { return x->minimumSize(); });
+	return abstractSize([=](shared_ptr<LayoutManager> x){
+		return x->minimumSize();
+	});
 }
 
 tuple<int, int> GUI::LayoutMedian::abstractSize(
@@ -16,8 +21,8 @@ tuple<int, int> GUI::LayoutMedian::abstractSize(
 	int y = 0;
 	for (auto c : m_children) {
 		auto aSize = callback(c);
-		x += std::get<0>(aSize);
-		y += std::get<1>(aSize);
+		x = max(std::get<0>(aSize), x);
+		y = max(std::get<1>(aSize), y);
 	}
 	return std::tuple<int, int>(x, y);
 }

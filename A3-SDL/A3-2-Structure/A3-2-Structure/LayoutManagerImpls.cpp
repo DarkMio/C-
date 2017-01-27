@@ -14,7 +14,7 @@ bool GUI::VerticalLayout::draw(Surface const & surface, Rectangle const & rect) 
 	int allocated_space = rect.h / m_children.size();
 	return abstractDraw(surface, rect,
 		[&rect, &allocated_space](int const& iter_cnt, auto const& current_element) {
-		auto pos = current_element->preferredSize();
+			auto pos = current_element->preferredSize();
 			return Rectangle(std::get<0>(pos), std::get<1>(pos), rect.x, rect.y + allocated_space * iter_cnt);
 		}
 	);

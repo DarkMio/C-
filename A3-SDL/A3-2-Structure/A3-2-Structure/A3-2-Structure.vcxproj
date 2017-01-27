@@ -166,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="AppComposite.h" />
     <ClInclude Include="Canvas.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="LayoutManager.h" />
     <ClInclude Include="LayoutManagerImpls.h" />
@@ -175,6 +176,12 @@
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Views.h" />
     <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="eraser.bmp" />
+    <Image Include="eyedropper.bmp" />
+    <Image Include="fill.bmp" />
+    <Image Include="pencil.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
