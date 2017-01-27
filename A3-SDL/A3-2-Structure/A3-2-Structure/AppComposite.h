@@ -6,13 +6,21 @@
 #include "EventManager.h"
 #include <iostream>
 #include <chrono>
+#include <thread>
 #include "OptimizedFields.h"
+#include "Views.h"
+
+
+// #include "Controller.h"
 using namespace std;
 using namespace std::chrono;
 
 class AppComposite {
 	private:
 	SDL_Wrap::Window m_window;
+	high_resolution_clock::time_point m_frametime;
+
+	Views::Controller m_controller;
 	// SDL_Wrap::Surface m_surface;
 	
 	bool m_quit;

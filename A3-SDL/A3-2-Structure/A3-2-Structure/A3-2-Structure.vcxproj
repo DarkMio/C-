@@ -166,10 +166,10 @@
   <ItemGroup>
     <ClInclude Include="AppComposite.h" />
     <ClInclude Include="Canvas.h" />
-    <ClInclude Include="Controller.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="LayoutManager.h" />
     <ClInclude Include="LayoutManagerImpls.h" />
+    <ClInclude Include="Math_Helper.h" />
     <ClInclude Include="OptimizedFields.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="SDL_Pointer.h" />
@@ -178,10 +178,13 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="circle_brush.bmp" />
     <Image Include="eraser.bmp" />
     <Image Include="eyedropper.bmp" />
     <Image Include="fill.bmp" />
     <Image Include="pencil.bmp" />
+    <Image Include="pencil_brush.bmp" />
+    <Image Include="star_brush.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

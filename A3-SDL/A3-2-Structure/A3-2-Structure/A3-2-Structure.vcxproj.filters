@@ -34,6 +34,15 @@
     <Filter Include="Resource Files\img">
       <UniqueIdentifier>{0e8b8527-5a0e-419e-8708-a87e7757189a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Misc">
+      <UniqueIdentifier>{63983abc-4c6a-4dd2-97ca-a2be64d31d8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Misc">
+      <UniqueIdentifier>{af62c4c4-9d89-4275-9257-2784fc774c01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\brushes">
+      <UniqueIdentifier>{f16ade5f-1e13-4f0e-9e43-e649fe61f971}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -107,8 +116,8 @@
     <ClInclude Include="Views.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Controller.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Math_Helper.h">
+      <Filter>Header Files\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +132,15 @@
     </Image>
     <Image Include="pencil.bmp">
       <Filter>Resource Files\img</Filter>
+    </Image>
+    <Image Include="circle_brush.bmp">
+      <Filter>Resource Files\brushes</Filter>
+    </Image>
+    <Image Include="star_brush.bmp">
+      <Filter>Resource Files\brushes</Filter>
+    </Image>
+    <Image Include="pencil_brush.bmp">
+      <Filter>Resource Files\brushes</Filter>
     </Image>
   </ItemGroup>
 </Project>
