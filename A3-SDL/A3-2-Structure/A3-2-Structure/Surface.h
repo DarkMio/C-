@@ -18,6 +18,7 @@ namespace SDL_Wrap {
 		Surface(size_t const& width, size_t const& height);
 		Surface(SDL_Surface* surf);
 		Surface(string path);
+		Surface(SDL_Surface* surface, GUI::Rectangle const& dstSize);
 		Surface(Surface const& copy); // Copy Constructor
 		Surface(Surface&& other); // Move Constructor
 		Surface& operator=(Surface const& other); // Copy Assignment

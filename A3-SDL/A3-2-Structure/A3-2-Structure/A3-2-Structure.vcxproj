@@ -105,6 +105,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>E:\Projects\cpp\uni\A3-SDL\SDL2-2.0.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -178,13 +179,16 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="brush.bmp" />
     <Image Include="circle_brush.bmp" />
     <Image Include="eraser.bmp" />
     <Image Include="eyedropper.bmp" />
     <Image Include="fill.bmp" />
     <Image Include="pencil.bmp" />
     <Image Include="pencil_brush.bmp" />
+    <Image Include="star.bmp" />
     <Image Include="star_brush.bmp" />
+    <Image Include="undo.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

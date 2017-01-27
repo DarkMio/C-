@@ -29,6 +29,42 @@ namespace SDL_Wrap {
 		}
 	}
 
+	Surface::Surface(SDL_Surface* src, GUI::Rectangle const& dstSize) {
+
+		m_surface = SurfacePtr(SDL_CreateRGBSurface(src->flags, dstSize.w, dstSize.h, src->format->BitsPerPixel,
+												 src->format->Rmask, src->format->Gmask, src->format->Bmask, src->format->Amask));
+
+		double    _stretch_factor_x = (static_cast<double>(dstSize.w) / static_cast<double>(src->w)),
+			_stretch_factor_y = (static_cast<double>(dstSize.h) / static_cast<double>(src->h));
+
+		Uint32 *pixels = static_cast<Uint32 *>(m_surface->pixels); // get pixel array
+		Uint32 *srcPxl = static_cast<Uint32 *>(src->pixels); // get pixel array
+
+
+		auto ReadPixel = [=](Uint32 x, Uint32 y) -> Uint32 {
+			return Sint32(srcPxl[(y * src->w) + x]);
+		};
+
+		auto DrawPixel = [=](SDL_Surface* surf, Uint32 x, Uint32 y, Uint32 color){
+			pixels[(y * surf->w) + x] = color;
+		};
+
+		for (Uint32 y = 0; y < src->h; y++) {
+			for (Uint32 x = 0; x < src->w; x++) {
+				for (Uint32 o_y = 0; o_y < _stretch_factor_y; ++o_y) {
+					for (Uint32 o_x = 0; o_x < _stretch_factor_x; ++o_x) {
+						auto color = ReadPixel(x, y);
+						DrawPixel(m_surface.get(),
+								  Uint32(_stretch_factor_x * x) + o_x,
+								  Uint32(_stretch_factor_y * y) + o_y,
+								  color
+						);
+					}
+				}
+			}
+		}
+	}
+
 	Surface::Surface(Surface const & copy) {
 		m_surface = SurfacePtr(SDL_ConvertSurface(copy.m_surface.get(), copy.m_surface->format, copy.m_surface->flags));
 	}

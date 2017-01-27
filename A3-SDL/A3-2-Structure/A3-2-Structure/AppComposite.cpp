@@ -27,11 +27,6 @@ AppComposite::AppComposite() : m_window(640, 480, "Haram-Bae"), m_quit(false), m
 	double dif = duration_cast<nanoseconds>(t2 - t1).count();
 	printf("Generation time: %lf nanoseconds.\n", dif);
 
-	m_events.subscribe(SDL_MOUSEBUTTONDOWN, [](SDL_Event const& event) {
-		std::cout << "Button press: [" << event.button.x << "," << event.button.y << "]" << std::endl;
-		return true;
-	});
-
 	m_events.subscribe(SDL_QUIT, [=](SDL_Event const& event){
 		m_quit = true;
 		return true;

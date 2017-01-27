@@ -142,5 +142,14 @@
     <Image Include="pencil_brush.bmp">
       <Filter>Resource Files\brushes</Filter>
     </Image>
+    <Image Include="undo.bmp">
+      <Filter>Resource Files\img</Filter>
+    </Image>
+    <Image Include="star.bmp">
+      <Filter>Resource Files\img</Filter>
+    </Image>
+    <Image Include="brush.bmp">
+      <Filter>Resource Files\img</Filter>
+    </Image>
   </ItemGroup>
 </Project>
