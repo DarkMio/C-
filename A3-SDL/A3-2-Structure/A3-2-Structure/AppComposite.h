@@ -7,7 +7,6 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-#include "OptimizedFields.h"
 #include "Views.h"
 
 

@@ -111,7 +111,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>E:\Projects\cpp\uni\A3-SDL\SDL2-2.0.5\lib\x64_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -140,12 +140,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\Projects\cpp\uni\A3-SDL\SDL2-2.0.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\Projects\cpp\uni\A3-SDL\SDL2-2.0.5\lib\x64_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -154,11 +157,9 @@
   <ItemGroup>
     <ClCompile Include="A3-2-Structure.cpp" />
     <ClCompile Include="AppComposite.cpp" />
-    <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="LayoutManager.cpp" />
     <ClCompile Include="LayoutManagerImpls.cpp" />
-    <ClCompile Include="OptimizedFields.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Views.cpp" />
@@ -166,12 +167,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppComposite.h" />
-    <ClInclude Include="Canvas.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="LayoutManager.h" />
     <ClInclude Include="LayoutManagerImpls.h" />
     <ClInclude Include="Math_Helper.h" />
-    <ClInclude Include="OptimizedFields.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="SDL_Pointer.h" />
     <ClInclude Include="Surface.h" />

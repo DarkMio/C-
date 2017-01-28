@@ -51,9 +51,6 @@
     <ClCompile Include="A3-2-Structure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Canvas.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AppComposite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -75,17 +72,11 @@
     <ClCompile Include="EventManager.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="OptimizedFields.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Views.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Canvas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AppComposite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -106,9 +97,6 @@
     </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="OptimizedFields.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDL_Pointer.h">
       <Filter>Header Files\SDL</Filter>

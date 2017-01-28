@@ -2,7 +2,6 @@
 
 #include "Rectangle.h"
 #include "Surface.h"
-#include "Canvas.h"
 #include <vector>
 #include <exception>
 #include <memory>
@@ -25,7 +24,7 @@ namespace GUI {
 		virtual tuple<int, int> preferredSize() const = 0;
 		virtual tuple<int, int> minimumSize() const = 0;
 		virtual bool draw(Surface const& surface, Rectangle const& rect) const = 0;
-		virtual void add(shared_ptr<LayoutManager> layout, Uint32 const& lflags) = 0;
+		virtual void add(shared_ptr<LayoutManager> layout, Uint32 const& lflags) = 0; 
 		virtual ~LayoutManager() {};
 	};
 

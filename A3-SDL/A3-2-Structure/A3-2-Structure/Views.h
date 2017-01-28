@@ -249,15 +249,13 @@ namespace Views {
 		
 
 		bool draw(Surface const& surface, Rectangle const& rect) const override {
-			m_dirty |= m_last_pos.h != rect.h || m_last_pos.w != rect.w || m_last_pos.x != rect.x || m_last_pos.y != rect.y;
+			m_history.draw(surface, Rectangle(160, 53, 1, 427));
 
+			m_dirty |= m_last_pos.h != rect.h || m_last_pos.w != rect.w || m_last_pos.x != rect.x || m_last_pos.y != rect.y;
 			if (m_dirty) {
 				m_last_pos = rect;
 				surface.blit(m_surface, rect);
 				m_dirty = false;
-
-				m_history.draw(surface, Rectangle(160, 53, 1, 427));
-				// surface.blit(static_cast<HistoryPanel>(m_history).giff_diretide(), Rectangle(160, 53, 1, 427));
 				return true;
 			}
 			return false;
